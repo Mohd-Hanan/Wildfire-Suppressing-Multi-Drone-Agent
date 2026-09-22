@@ -1,7 +1,7 @@
 import time
 import argparse
-from src.wildfire.simulation.terrain import Terrain
-from src.wildfire.rendering.renderer import Renderer
+from wildfire.simulation.terrain import Terrain
+from wildfire.rendering.renderer import Renderer
 
 def main():
     parser = argparse.ArgumentParser()

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Wildfire-Suppressing-Multi-Drone-Agent.iml" filepath="$PROJECT_DIR$/.idea/Wildfire-Suppressing-Multi-Drone-Agent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/wildfire_agent.iml" filepath="$PROJECT_DIR$/.idea/wildfire_agent.iml" />
     </modules>
   </component>
 </project>

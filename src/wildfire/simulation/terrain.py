@@ -1,37 +1,32 @@
 import numpy as np
+from scipy.ndimage import zoom
 
-def generate_smooth_noise(width: int, height: int, scale: int, rng: np.random.Generator) -> np.ndarray:
-    """Generates a 2D array of smooth noise using a simple box blur approach."""
-    # Generate lower resolution noise
-    low_res_w = max(1, width // scale)
-    low_res_h = max(1, height // scale)
-    base_noise = rng.uniform(0, 1, (low_res_w, low_res_h))
+def generate_fractal_noise(width: int, height: int, rng: np.random.Generator, octaves=4, persistence=0.5, base_freq=4):
+    """Generates beautiful multi-scale fractal noise (similar to Perlin noise)."""
+    noise = np.zeros((width, height))
+    amplitude = 1.0
+    frequency = base_freq
+    total_amplitude = 0.0
     
-    # Upscale using Kronecker product for simplicity, or just numpy repeat and blur
-    # Since we want smooth, we will repeat then convolve
-    repeated = np.repeat(np.repeat(base_noise, scale, axis=0), scale, axis=1)
-    
-    # Crop to exact dimensions
-    repeated = repeated[:width, :height]
-    
-    # Simple multi-pass box blur for smoothing
-    smoothed = repeated.copy()
-    passes = scale
-    for _ in range(passes):
-        # Shift and average
-        up = np.roll(smoothed, 1, axis=0)
-        down = np.roll(smoothed, -1, axis=0)
-        left = np.roll(smoothed, 1, axis=1)
-        right = np.roll(smoothed, -1, axis=1)
-        smoothed = (smoothed + up + down + left + right) / 5.0
+    for _ in range(octaves):
+        # Generate low-res random grid
+        base = rng.uniform(0, 1, (frequency, frequency))
         
-    # Normalize back to [0, 1]
-    min_val = smoothed.min()
-    max_val = smoothed.max()
-    if max_val > min_val:
-        smoothed = (smoothed - min_val) / (max_val - min_val)
-    
-    return smoothed
+        # Smoothly interpolate it up to the full map size using cubic interpolation
+        zoom_x = width / frequency
+        zoom_y = height / frequency
+        scaled = zoom(base, (zoom_x, zoom_y), order=3)
+        
+        # Add it to the main noise
+        noise += scaled[:width, :height] * amplitude
+        total_amplitude += amplitude
+        
+        # Prepare for next octave (higher frequency, lower amplitude)
+        amplitude *= persistence
+        frequency *= 2
+        
+    # Normalize to [0, 1]
+    return (noise - noise.min()) / (noise.max() - noise.min() + 1e-8)
 
 class Terrain:
     def __init__(self, width: int, height: int, seed: int = None):
@@ -39,17 +34,22 @@ class Terrain:
         self.height = height
         self.rng = np.random.default_rng(seed)
         
-        # Generate underlying fields [0, 1]
-        self.elevation = generate_smooth_noise(width, height, scale=8, rng=self.rng)
+        # 1. Generate beautiful, smooth elevation using fractal noise
+        self.elevation = generate_fractal_noise(width, height, self.rng, base_freq=3)
         
-        # Calculate slope magnitude based on elevation gradient
+        # 2. Calculate slope and aspect for 3D hillshading
         dx, dy = np.gradient(self.elevation)
         self.slope = np.sqrt(dx**2 + dy**2)
-        # Normalize slope
         s_max = self.slope.max()
         if s_max > 0:
             self.slope = self.slope / s_max
             
-        self.fuel = generate_smooth_noise(width, height, scale=4, rng=self.rng)
-        self.moisture = generate_smooth_noise(width, height, scale=6, rng=self.rng)
+        # 3. Generate natural fuel (vegetation) clusters
+        # Fuel often gathers in lower, flatter areas
+        base_fuel = generate_fractal_noise(width, height, self.rng, base_freq=5)
+        self.fuel = np.clip(base_fuel - (self.elevation * 0.3), 0, 1)
+        self.fuel = (self.fuel - self.fuel.min()) / (self.fuel.max() - self.fuel.min() + 1e-8)
+        
+        # 4. Moisture (valleys are wetter, peaks are drier)
+        self.moisture = np.clip(1.0 - self.elevation + generate_fractal_noise(width, height, self.rng, base_freq=6)*0.2, 0, 1)
 
