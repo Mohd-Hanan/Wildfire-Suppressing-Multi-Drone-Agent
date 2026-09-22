@@ -1,0 +1,30 @@
+
+==============================================
+EXPERIMENT: A (Shared) (Separate: False)
+==============================================
+Update  1 | Stoch West: 17.2% | Ent: 1.822 | PreClip: 2384.5 | PostClip: 0.500
+Update  5 | Stoch West: 69.9% | Ent: 0.157 | PreClip: 13569.0 | PostClip: 0.500
+Update 10 | Stoch West: 92.2% | Ent: 0.187 | PreClip: 15328.0 | PostClip: 0.500
+Update 15 | Stoch West: 100.0% | Ent: 0.000 | PreClip: 367598.9 | PostClip: 0.500
+Update 20 | Stoch West: 100.0% | Ent: 0.000 | PreClip: 389564.6 | PostClip: 0.500
+
+==============================================
+EXPERIMENT: B (Separate) (Separate: True)
+==============================================
+Update  1 | Stoch West: 17.6% | Ent: 1.923 | pActorGrad: 0.2 | vCriticGrad: 2597.1 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update  5 | Stoch West: 32.4% | Ent: 1.871 | pActorGrad: 0.4 | vCriticGrad: 28353.9 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 10 | Stoch West: 25.8% | Ent: 1.761 | pActorGrad: 0.5 | vCriticGrad: 24324.7 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 15 | Stoch West: 29.3% | Ent: 1.693 | pActorGrad: 0.5 | vCriticGrad: 323702.7 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 20 | Stoch West: 36.3% | Ent: 1.679 | pActorGrad: 0.6 | vCriticGrad: 47246.6 | vActorGrad: 0.0 | pCriticGrad: 0.0
+
+
+=== COMPACT COMPARISON TABLE ===
+Experiment      | Arch       | Ent@5   | Ent@10  | Ent@20  | West@5  | West@10 | West@20 | Max Grad     | Final Value Loss
+------------------------------------------------------------------------------------------------------------------------
+A (Shared)      | Shared     | 0.16    | 0.19    | 0.00    | 69.9    | 92.2    | 100.0   | 389564.6     | 166196.4       
+B (Separate)    | Separate   | 1.87    | 1.76    | 1.68    | 32.4    | 25.8    | 36.3    | 345163.9     | 28289.9        
+
+=== ISOLATION TEST (Update 20 Averages, Separate Arch) ===
+Experiment      | Actor Policy Grad    | Critic Value Grad    | Value Grad on Actor  | Policy Grad on Critic
+---------------------------------------------------------------------------------------------------------
+B (Separate)    | 0.6                  | 47246.6              | 0.0                  | 0.0                 

@@ -1,0 +1,53 @@
+
+==============================================
+EXPERIMENT: A (coef=0.5) (Value Coef: 0.5)
+==============================================
+Update  1 | Stoch West: 17.6% | Ent: 1.802 | pGrad: 0.4 | vGrad: 1906.0 | eGrad: 0.0 | Pre: 1905.9 | Post: 0.500
+Update  5 | Stoch West: 71.9% | Ent: 0.594 | pGrad: 7.8 | vGrad: 17757.2 | eGrad: 0.2 | Pre: 17757.1 | Post: 0.500
+Update 10 | Stoch West: 94.5% | Ent: 0.102 | pGrad: 32.1 | vGrad: 159165.5 | eGrad: 1.4 | Pre: 159165.6 | Post: 0.500
+Update 15 | Stoch West: 100.0% | Ent: 0.005 | pGrad: 0.4 | vGrad: 98444.7 | eGrad: 0.2 | Pre: 98444.7 | Post: 0.500
+Update 20 | Stoch West: 100.0% | Ent: 0.002 | pGrad: 4.6 | vGrad: 75387.2 | eGrad: 0.2 | Pre: 75387.2 | Post: 0.500
+
+==============================================
+EXPERIMENT: B (coef=0.1) (Value Coef: 0.1)
+==============================================
+Update  1 | Stoch West: 17.6% | Ent: 1.845 | pGrad: 0.4 | vGrad: 43.6 | eGrad: 0.0 | Pre: 43.5 | Post: 0.500
+Update  5 | Stoch West: 78.5% | Ent: 0.422 | pGrad: 3.7 | vGrad: 1032.0 | eGrad: 0.3 | Pre: 1031.9 | Post: 0.500
+Update 10 | Stoch West: 68.4% | Ent: 0.262 | pGrad: 61.2 | vGrad: 19513.9 | eGrad: 0.4 | Pre: 19514.0 | Post: 0.500
+Update 15 | Stoch West: 100.0% | Ent: 0.002 | pGrad: 0.8 | vGrad: 15887.1 | eGrad: 0.1 | Pre: 15887.1 | Post: 0.500
+Update 20 | Stoch West: 100.0% | Ent: 0.000 | pGrad: 0.0 | vGrad: 6678.0 | eGrad: 0.0 | Pre: 6678.0 | Post: 0.500
+
+==============================================
+EXPERIMENT: C (coef=0.01) (Value Coef: 0.01)
+==============================================
+Update  1 | Stoch West: 17.2% | Ent: 1.832 | pGrad: 0.4 | vGrad: 40.3 | eGrad: 0.0 | Pre: 40.2 | Post: 0.500
+Update  5 | Stoch West: 60.9% | Ent: 0.306 | pGrad: 3.9 | vGrad: 231.8 | eGrad: 0.2 | Pre: 231.6 | Post: 0.500
+Update 10 | Stoch West: 100.0% | Ent: 0.000 | pGrad: 0.0 | vGrad: 3548.3 | eGrad: 0.0 | Pre: 3548.3 | Post: 0.500
+Update 15 | Stoch West: 100.0% | Ent: 0.000 | pGrad: 0.0 | vGrad: 2248.3 | eGrad: 0.0 | Pre: 2248.3 | Post: 0.500
+Update 20 | Stoch West: 100.0% | Ent: 0.000 | pGrad: 0.0 | vGrad: 13395.3 | eGrad: 0.0 | Pre: 13395.3 | Post: 0.500
+
+==============================================
+EXPERIMENT: D (coef=0.0) (Value Coef: 0.0)
+==============================================
+Update  1 | Stoch West: 17.2% | Ent: 1.928 | pGrad: 0.2 | vGrad: 0.0 | eGrad: 0.0 | Pre: 0.2 | Post: 0.238
+Update  5 | Stoch West: 16.0% | Ent: 1.927 | pGrad: 0.3 | vGrad: 0.0 | eGrad: 0.0 | Pre: 0.3 | Post: 0.345
+Update 10 | Stoch West: 12.1% | Ent: 1.894 | pGrad: 0.5 | vGrad: 0.0 | eGrad: 0.0 | Pre: 0.5 | Post: 0.419
+Update 15 | Stoch West: 12.9% | Ent: 1.838 | pGrad: 0.6 | vGrad: 0.0 | eGrad: 0.0 | Pre: 0.6 | Post: 0.455
+Update 20 | Stoch West: 11.7% | Ent: 1.564 | pGrad: 0.9 | vGrad: 0.0 | eGrad: 0.0 | Pre: 0.9 | Post: 0.480
+
+
+=== COMPACT COMPARISON TABLE ===
+Experiment      | vc   | Ent@5   | Ent@10  | Ent@20  | West@5  | West@10 | West@20 | Max Grad     | Final Value Loss
+-------------------------------------------------------------------------------------------------------------------
+A (coef=0.5)    | 0.5  | 0.59    | 0.10    | 0.00    | 71.9    | 94.5    | 100.0   | 409774.5     | 20489.6        
+B (coef=0.1)    | 0.1  | 0.42    | 0.26    | 0.00    | 78.5    | 68.4    | 100.0   | 39431.8      | 5711.5         
+C (coef=0.01)   | 0.01 | 0.31    | 0.00    | 0.00    | 60.9    | 100.0   | 100.0   | 13395.3      | 577649.3       
+D (coef=0.0)    | 0.0  | 1.93    | 1.89    | 1.56    | 16.0    | 12.1    | 11.7    | 0.9          | 89631.6        
+
+=== GRADIENT SOURCE TABLE (Update 20 Averages) ===
+Experiment      | Policy Grad  | Value Grad   | Entropy Grad | Combined Grad   | Dominant Source
+---------------------------------------------------------------------------------------------------------
+A (coef=0.5)    | 4.6          | 75387.2      | 0.2          | 75387.2         | Value
+B (coef=0.1)    | 0.0          | 6678.0       | 0.0          | 6678.0          | Value
+C (coef=0.01)   | 0.0          | 13395.3      | 0.0          | 13395.3         | Value
+D (coef=0.0)    | 0.9          | 0.0          | 0.0          | 0.9             | Policy

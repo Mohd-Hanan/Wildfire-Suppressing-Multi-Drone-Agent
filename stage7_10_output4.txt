@@ -1,0 +1,47 @@
+
+--- OBSERVATION SANITY ---
+Spatial min: 0.0, max: 1.0, mean: 0.1319107711315155, frac_nonzero: 0.21983471074380165
+Drone array: [1.         1.         0.96666664 0.         0.04255319 0.04255319]
+Wind array: [ 7.5852859e-01 -8.6144434e-04  9.9999964e-01]
+
+--- STOCHASTIC TRAINING DISTRIBUTION & FIXED LOGITS ---
+Initial  | Probs: ['0.141', '0.138', '0.146', '0.147', '0.156', '0.121', '0.152'] | Ent: 1.943
+Update  1 | Probs: ['0.152', '0.092', '0.087', '0.087', '0.280', '0.127', '0.174'] | Ent: 1.854 | Stoch Pcts: ['12.9%', '12.9%', '15.2%', '13.7%', '16.8%', '12.5%', '16.0%']
+Update  5 | Probs: ['0.022', '0.000', '0.000', '0.000', '0.967', '0.003', '0.008'] | Ent: 0.171 | Stoch Pcts: ['8.2%', '0.0%', '0.0%', '0.0%', '63.7%', '20.3%', '7.8%']
+Update 10 | Probs: ['0.000', '0.000', '0.000', '0.000', '1.000', '0.000', '0.000'] | Ent: 0.000 | Stoch Pcts: ['2.0%', '0.0%', '0.0%', '0.0%', '98.0%', '0.0%', '0.0%']
+Update 15 | Probs: ['0.000', '0.000', '0.000', '0.000', '1.000', '0.000', '0.000'] | Ent: 0.000 | Stoch Pcts: ['0.0%', '0.0%', '0.0%', '0.0%', '100.0%', '0.0%', '0.0%']
+Update 20 | Probs: ['0.000', '0.000', '0.000', '0.000', '1.000', '0.000', '0.000'] | Ent: 0.000 | Stoch Pcts: ['0.0%', '0.0%', '0.0%', '0.0%', '100.0%', '0.0%', '0.0%']
+
+--- INITIAL VS TRAINED FIXED OBSERVATION ---
+Initial Logits: [ 0.023019    0.00290863  0.05641536  0.0644214   0.12202342 -0.13093996
+  0.09843855]
+Initial Probs : [0.14092372 0.138118   0.14570953 0.14688078 0.15558982 0.12081493
+ 0.15196319]
+Initial Ent   : 1.9431
+Initial Argmax: 4
+Trained Logits: [ 291.18073   115.01392  -117.54802   -57.824852  346.84866   205.63768
+  271.38525 ]
+Trained Probs : [6.6637945e-25 0.0000000e+00 0.0000000e+00 0.0000000e+00 1.0000000e+00
+ 0.0000000e+00 1.6852243e-33]
+Trained Ent   : 0.0000
+Trained Argmax: 4
+
+--- PARAMETER CHANGES ---
+Total Params: 254344
+Num Changed: 194285
+Max Abs Change: 0.093980
+Mean Abs Change: 0.016780
+
+--- CRASH TRANSITION AUDIT ---
+Step 66 | Pos:( 0, 2)->( 0, 2) | Bat:  85.0-> 84.0 | Active: True->True | Act: 4 | Rwd: -15.01
+Step 67 | Pos:( 0, 2)->( 0, 2) | Bat:  84.0-> 83.0 | Active: True->True | Act: 4 | Rwd: -10.01
+Step 68 | Pos:( 0, 2)->( 0, 2) | Bat:  83.0-> 82.0 | Active: True->True | Act: 4 | Rwd: -10.01
+Step 69 | Pos:( 0, 2)->( 0, 2) | Bat:  82.0-> 81.0 | Active: True->True | Act: 4 | Rwd: -20.01
+Step 70 | Pos:( 0, 2)->( 0, 2) | Bat:  81.0-> 80.0 | Active: True->True | Act: 4 | Rwd: -15.01
+Step 71 | Pos:( 0, 2)->( 0, 2) | Bat:  80.0-> 79.0 | Active: True->True | Act: 4 | Rwd: -30.01
+Step 72 | Pos:( 0, 2)->( 0, 2) | Bat:  79.0-> 78.0 | Active: True->True | Act: 4 | Rwd: -30.01
+Step 73 | Pos:( 0, 2)->( 0, 2) | Bat:  78.0-> 77.0 | Active: True->True | Act: 4 | Rwd: -30.01
+Step 74 | Pos:( 0, 2)->( 0, 2) | Bat:  77.0-> 76.0 | Active: True->True | Act: 4 | Rwd: -15.01
+Step 75 | Pos:( 0, 2)->( 0, 2) | Bat:  76.0-> 75.0 | Active: True->True | Act: 4 | Rwd: -15.01
+CRASH OCCURRED AT STEP 150
+Final Pos: (0, 2) | Final Battery: 0 | Final Active: False

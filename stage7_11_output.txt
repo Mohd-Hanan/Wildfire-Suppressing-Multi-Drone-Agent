@@ -1,0 +1,35 @@
+
+==============================================
+EXPERIMENT: A (Original) (Reward Scale: 1.0)
+==============================================
+Update  1 | Stoch West: 17.2% | Fixed West: 25.4% | Ent: 1.875 | Val Loss: 464986.52 | Grad: 2443.74
+Update  5 | Stoch West: 57.4% | Fixed West: 65.6% | Ent: 0.652 | Val Loss: 295697.31 | Grad: 42487.81
+Update 10 | Stoch West: 80.1% | Fixed West: 100.0% | Ent: 0.000 | Val Loss: 150683.52 | Grad: 344384.37
+Update 15 | Stoch West: 100.0% | Fixed West: 100.0% | Ent: 0.000 | Val Loss: 19553.65 | Grad: 135671.14
+Update 20 | Stoch West: 100.0% | Fixed West: 100.0% | Ent: 0.000 | Val Loss: 46382.18 | Grad: 127603.47
+
+==============================================
+EXPERIMENT: B (/10) (Reward Scale: 10.0)
+==============================================
+Update  1 | Stoch West: 17.2% | Fixed West: 26.5% | Ent: 1.865 | Val Loss: 86.69 | Grad: 14.54
+Update  5 | Stoch West: 83.2% | Fixed West: 99.3% | Ent: 0.043 | Val Loss: 1248.03 | Grad: 1738.30
+Update 10 | Stoch West: 99.6% | Fixed West: 100.0% | Ent: 0.001 | Val Loss: 7754.61 | Grad: 7188.27
+Update 15 | Stoch West: 96.1% | Fixed West: 99.1% | Ent: 0.052 | Val Loss: 92.07 | Grad: 57.76
+Update 20 | Stoch West: 100.0% | Fixed West: 100.0% | Ent: 0.000 | Val Loss: 1209.83 | Grad: 2855.06
+
+==============================================
+EXPERIMENT: C (/100) (Reward Scale: 100.0)
+==============================================
+Update  1 | Stoch West: 16.8% | Fixed West: 29.4% | Ent: 1.834 | Val Loss: 31.26 | Grad: 14.31
+Update  5 | Stoch West: 77.3% | Fixed West: 99.0% | Ent: 0.069 | Val Loss: 81.77 | Grad: 89.72
+Update 10 | Stoch West: 98.4% | Fixed West: 97.8% | Ent: 0.131 | Val Loss: 18.42 | Grad: 89.31
+Update 15 | Stoch West: 81.6% | Fixed West: 93.7% | Ent: 0.297 | Val Loss: 8.31 | Grad: 66.61
+Update 20 | Stoch West: 80.5% | Fixed West: 91.4% | Ent: 0.413 | Val Loss: 5.00 | Grad: 26.48
+
+
+=== COMPACT COMPARISON TABLE ===
+Experiment      | Ent@5   | Ent@10  | Ent@20  | West@5  | West@10 | West@20 | Max Grad     | Final Value Loss
+--------------------------------------------------------------------------------------------------------------
+A (Original)    | 0.65    | 0.00    | 0.00    | 57.4%   | 80.1%   | 100.0%  | 743793.5     | 46382.2        
+B (/10)         | 0.04    | 0.00    | 0.00    | 83.2%   | 99.6%   | 100.0%  | 7188.3       | 1209.8         
+C (/100)        | 0.07    | 0.13    | 0.41    | 77.3%   | 98.4%   | 80.5%   | 89.7         | 5.0            

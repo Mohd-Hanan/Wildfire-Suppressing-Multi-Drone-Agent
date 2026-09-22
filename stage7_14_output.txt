@@ -1,0 +1,81 @@
+
+==============================================
+EXPERIMENT: A (Shared) (Separate: False)
+==============================================
+Update  1 | Stoch West: 17.2% | Ent: 1.871 | PreClip: 1393.3 | PostClip: 0.500
+Update  5 | Stoch West: 76.6% | Ent: 0.523 | PreClip: 3785.8 | PostClip: 0.500
+Update 10 | Stoch West: 62.1% | Ent: 0.064 | PreClip: 191698.7 | PostClip: 0.500
+Update 15 | Stoch West: 96.9% | Ent: 0.028 | PreClip: 94989.0 | PostClip: 0.500
+Update 20 | Stoch West: 94.1% | Ent: 0.094 | PreClip: 305585.1 | PostClip: 0.500
+
+==============================================
+EXPERIMENT: B (Separate) (Separate: True)
+==============================================
+Update  1 | Stoch West: 18.0% | Ent: 1.939 | pActorGrad: 0.2 | vCriticGrad: 1408.2 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update  5 | Stoch West: 17.6% | Ent: 1.891 | pActorGrad: 0.5 | vCriticGrad: 84940.8 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 10 | Stoch West: 19.5% | Ent: 1.881 | pActorGrad: 0.4 | vCriticGrad: 49778.4 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 15 | Stoch West: 20.7% | Ent: 1.780 | pActorGrad: 0.6 | vCriticGrad: 78461.2 | vActorGrad: 0.0 | pCriticGrad: 0.0
+Update 20 | Stoch West: 27.0% | Ent: 1.819 | pActorGrad: 0.4 | vCriticGrad: 71306.1 | vActorGrad: 0.0 | pCriticGrad: 0.0
+
+
+=== COMPACT COMPARISON TABLE ===
+Experiment      | Arch       | Ent@5   | Ent@10  | Ent@20  | West@5  | West@10 | West@20 | Max Grad     | Final Value Loss
+------------------------------------------------------------------------------------------------------------------------
+A (Shared)      | Shared     | 0.52    | 0.06    | 0.09    | 76.6    | 62.1    | 94.1    | 385750.8     | 108308.0       
+B (Separate)    | Separate   | 1.89    | 1.88    | 1.82    | 17.6    | 19.5    | 27.0    | 372597.7     | 49877.1        
+
+=== ISOLATION TEST (Update 20 Averages, Separate Arch) ===
+Experiment      | Actor Policy Grad    | Critic Value Grad    | Value Grad on Actor  | Policy Grad on Critic
+---------------------------------------------------------------------------------------------------------
+B (Separate)    | 0.4                  | 71306.1              | 0.0                  | 0.0                 
+
+--- EVALUATING RANDOM ---
+
+--- TRAINING B (Shared) ---
+Update  1 | Stoch West: 17.6% | Ent: 1.827
+Update  5 | Stoch West: 80.5% | Ent: 0.378
+Update 10 | Stoch West: 75.8% | Ent: 0.000
+Update 15 | Stoch West: 100.0% | Ent: 0.000
+Update 20 | Stoch West: 100.0% | Ent: 0.000
+
+--- EVALUATING SHARED ---
+
+--- TRAINING C (Separate) ---
+Update  1 | Stoch West: 18.0% | Ent: 1.918
+Update  5 | Stoch West: 35.2% | Ent: 1.765
+Update 10 | Stoch West: 31.6% | Ent: 1.787
+Update 15 | Stoch West: 39.5% | Ent: 1.595
+Update 20 | Stoch West: 33.2% | Ent: 1.731
+
+--- EVALUATING SEPARATE ---
+
+[OK] Resource metric bounds visually verified. Battery and Payload never exceeded max.
+
+
+=== FACTUAL COMPARISON TABLE ===
+Controller      | Mean Reward  | Mean Burned  | Extinction Rate | Mean Length  | Crashes 
+-------------------------------------------------------------------------------------
+Random          | -5247.0      | 1062.2       | 70.0          % | 330.0        | 6       
+Shared PPO      | -5255.5      | 1062.7       | 70.0          % | 329.9        | 18      
+Separate PPO    | -5255.5      | 1062.7       | 70.0          % | 329.9        | 18      
+
+=== ACTION DISTRIBUTION TABLE ===
+Controller      | Stay   | North  | South  | East   | West   | Water  | Retardant
+-------------------------------------------------------------------------------------
+Random          | 13.7   | 14.6   | 13.5   | 14.3   | 14.2   | 14.7   | 15.0  
+Shared PPO      | 0.0    | 0.0    | 0.0    | 0.0    | 100.0  | 0.0    | 0.0   
+Separate PPO    | 0.0    | 0.0    | 0.0    | 0.0    | 100.0  | 0.0    | 0.0   
+
+=== BEHAVIOR TABLE ===
+Controller      | Deploy Attempts | Successful Water   | Successful Retardant   | Base Visits  | Boundary Pushes
+--------------------------------------------------------------------------------------------------------------
+Random          | 97.9            | 14.0               | 0.0                    | 22.8         | 11.2           
+Shared PPO      | 0.0             | 0.0                | 0.0                    | 1.0          | 141.4          
+Separate PPO    | 0.0             | 0.0                | 0.0                    | 1.0          | 141.4          
+
+=== SEPARATE PPO LEARNING CHECK ===
+Update  1 | Ent: 1.92 | Stoch West: 18.0% | Stoch Water: 10.9% | Fixed Argmax: 4
+Update  5 | Ent: 1.76 | Stoch West: 35.2% | Stoch Water: 7.4% | Fixed Argmax: 4
+Update 10 | Ent: 1.79 | Stoch West: 31.6% | Stoch Water: 6.6% | Fixed Argmax: 4
+Update 15 | Ent: 1.59 | Stoch West: 39.5% | Stoch Water: 7.4% | Fixed Argmax: 4
+Update 20 | Ent: 1.73 | Stoch West: 33.2% | Stoch Water: 6.2% | Fixed Argmax: 4
