@@ -26,14 +26,18 @@ class PPOTrainer:
         
         self.optimizer = torch.optim.Adam(self.policy.parameters(), lr=learning_rate)
         
+    @staticmethod
+    def _normalize_advantages(advantages):
+        adv_mean = advantages.mean()
+        adv_std = advantages.std()
+        return (advantages - adv_mean) / (adv_std + 1e-8)
+        
     def update(self, spatial, drone, wind, actions, old_log_probs, advantages, returns):
         """
         Performs multiple epochs of PPO optimization over a rollout batch.
         """
         # Advantage normalization
-        adv_mean = advantages.mean()
-        adv_std = advantages.std()
-        normalized_advantages = (advantages - adv_mean) / (adv_std + 1e-8)
+        normalized_advantages = self._normalize_advantages(advantages)
         
         N = len(actions)
         indices = np.arange(N)

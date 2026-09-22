@@ -1,0 +1,542 @@
+Training started...
+========================================
+Update: 1/20
+Environment steps: 256
+
+--- Rollout Metrics ---
+Rollout reward mean: -10.5178
+Rollout reward min/max: [-90.0100, 0.0000]
+Advantage mean/std: -142.7572 / 189.7615
+Advantage min/max: [-823.8530, -0.0023]
+Return mean/std: -142.7169 / 189.7591
+Return min/max: [-823.8112, 0.0309]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: 0.0208
+Value loss: 56071.4727
+Entropy: 1.9078
+Approx KL: 0.0194
+Clip fraction: 0.3242
+Ratio mean: 1.0089
+Gradient norm: 539.2121
+========================================
+Update: 2/20
+Environment steps: 512
+
+--- Rollout Metrics ---
+Rollout reward mean: -3.3302
+Rollout reward min/max: [-40.0100, 99.9900]
+Advantage mean/std: -42.2767 / 76.4921
+Advantage min/max: [-272.4971, 101.4237]
+Return mean/std: -43.7459 / 76.4789
+Return min/max: [-273.7918, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 2
+Completed episode reward mean: -1249.20
+Completed episode length mean: 171.0
+Extinguished count: 2
+Completed mean burned cells: 269.5
+Completed mean crashes: 0.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0419
+Value loss: 7483.4823
+Entropy: 1.5583
+Approx KL: 0.1503
+Clip fraction: 0.5771
+Ratio mean: 0.9644
+Gradient norm: 577.9496
+========================================
+Update: 3/20
+Environment steps: 768
+
+--- Rollout Metrics ---
+Rollout reward mean: -12.9592
+Rollout reward min/max: [-70.0100, 99.9900]
+Advantage mean/std: -208.3817 / 204.9541
+Advantage min/max: [-642.7397, 106.8334]
+Return mean/std: -213.6067 / 203.9666
+Return min/max: [-646.9313, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -1057.62
+Completed episode length mean: 263.0
+Extinguished count: 1
+Completed mean burned cells: 229.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0439
+Value loss: 84228.1812
+Entropy: 0.9640
+Approx KL: 0.1012
+Clip fraction: 0.3105
+Ratio mean: 0.9845
+Gradient norm: 5869.1294
+========================================
+Update: 4/20
+Environment steps: 1024
+
+--- Rollout Metrics ---
+Rollout reward mean: -13.0764
+Rollout reward min/max: [-55.0100, -0.0100]
+Advantage mean/std: -203.6131 / 152.3596
+Advantage min/max: [-494.4076, 0.0925]
+Return mean/std: -213.8840 / 152.3770
+Return min/max: [-504.7135, -10.1619]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: 0.0107
+Value loss: 62765.5962
+Entropy: 0.6495
+Approx KL: 0.0265
+Clip fraction: 0.2285
+Ratio mean: 1.0030
+Gradient norm: 11240.4517
+========================================
+Update: 5/20
+Environment steps: 1280
+
+--- Rollout Metrics ---
+Rollout reward mean: -36.6897
+Rollout reward min/max: [-120.0100, 0.0000]
+Advantage mean/std: -603.9355 / 394.7910
+Advantage min/max: [-1309.2023, -29.7411]
+Return mean/std: -627.8939 / 396.4603
+Return min/max: [-1336.0815, -56.6073]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -7309.99
+Completed episode length mean: 500.0
+Extinguished count: 0
+Completed mean burned cells: 1459.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0075
+Value loss: 508056.1562
+Entropy: 0.3323
+Approx KL: 0.0227
+Clip fraction: 0.0986
+Ratio mean: 0.9978
+Gradient norm: 71697.1277
+========================================
+Update: 6/20
+Environment steps: 1536
+
+--- Rollout Metrics ---
+Rollout reward mean: -19.9123
+Rollout reward min/max: [-145.0100, 99.9900]
+Advantage mean/std: -268.0466 / 442.0829
+Advantage min/max: [-1509.3650, 153.8551]
+Return mean/std: -319.2166 / 437.4865
+Return min/max: [-1550.5795, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -9993.75
+Completed episode length mean: 376.0
+Extinguished count: 1
+Completed mean burned cells: 2016.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0016
+Value loss: 259481.6807
+Entropy: 0.1864
+Approx KL: -0.0006
+Clip fraction: 0.0049
+Ratio mean: 1.0008
+Gradient norm: 43716.2583
+========================================
+Update: 7/20
+Environment steps: 1792
+
+--- Rollout Metrics ---
+Rollout reward mean: -18.7209
+Rollout reward min/max: [-105.0100, -0.0100]
+Advantage mean/std: -244.5073 / 264.6559
+Advantage min/max: [-940.7983, 8.3280]
+Return mean/std: -315.8906 / 264.9087
+Return min/max: [-1012.5784, -62.7806]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: 0.0001
+Value loss: 119590.9985
+Entropy: 0.3243
+Approx KL: 0.0033
+Clip fraction: 0.0000
+Ratio mean: 0.9970
+Gradient norm: 60535.8333
+========================================
+Update: 8/20
+Environment steps: 2048
+
+--- Rollout Metrics ---
+Rollout reward mean: -27.4123
+Rollout reward min/max: [-115.0100, 99.9900]
+Advantage mean/std: -409.2034 / 531.7431
+Advantage min/max: [-1358.7085, 239.2512]
+Return mean/std: -555.1873 / 541.1295
+Return min/max: [-1514.8080, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 2
+Completed episode reward mean: -4282.18
+Completed episode length mean: 218.5
+Extinguished count: 2
+Completed mean burned cells: 875.0
+Completed mean crashes: 0.5
+
+--- Optimization Metrics ---
+Policy loss: 0.0049
+Value loss: 415622.2910
+Entropy: 0.2819
+Approx KL: 0.0017
+Clip fraction: 0.0605
+Ratio mean: 1.0017
+Gradient norm: 196935.2949
+========================================
+Update: 9/20
+Environment steps: 2304
+
+--- Rollout Metrics ---
+Rollout reward mean: -47.7053
+Rollout reward min/max: [-185.0100, 99.9900]
+Advantage mean/std: -613.6448 / 707.5408
+Advantage min/max: [-1894.3132, 428.8670]
+Return mean/std: -852.3915 / 657.2775
+Return min/max: [-2047.2697, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -11107.60
+Completed episode length mean: 261.0
+Extinguished count: 1
+Completed mean burned cells: 2239.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0011
+Value loss: 832050.7656
+Entropy: 0.2617
+Approx KL: 0.0002
+Clip fraction: 0.0088
+Ratio mean: 1.0006
+Gradient norm: 290333.1777
+========================================
+Update: 10/20
+Environment steps: 2560
+
+--- Rollout Metrics ---
+Rollout reward mean: -4.4826
+Rollout reward min/max: [-45.0100, 99.9900]
+Advantage mean/std: -3.8112 / 125.4270
+Advantage min/max: [-247.9055, 434.7025]
+Return mean/std: -320.2501 / 113.2797
+Return min/max: [-546.1816, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -8332.69
+Completed episode length mean: 270.0
+Extinguished count: 1
+Completed mean burned cells: 1684.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0049
+Value loss: 13861.1450
+Entropy: 0.1868
+Approx KL: 0.0058
+Clip fraction: 0.0146
+Ratio mean: 0.9995
+Gradient norm: 23543.2220
+========================================
+Update: 11/20
+Environment steps: 2816
+
+--- Rollout Metrics ---
+Rollout reward mean: -29.0139
+Rollout reward min/max: [-75.0100, -0.0100]
+Advantage mean/std: -407.3085 / 169.8768
+Advantage min/max: [-644.0966, -12.0445]
+Return mean/std: -758.4349 / 153.3014
+Return min/max: [-981.3949, -404.3239]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: 0.0006
+Value loss: 175392.2305
+Entropy: 0.0046
+Approx KL: -0.0026
+Clip fraction: 0.0000
+Ratio mean: 1.0026
+Gradient norm: 324827.3730
+========================================
+Update: 12/20
+Environment steps: 3072
+
+--- Rollout Metrics ---
+Rollout reward mean: -7.8615
+Rollout reward min/max: [-40.0100, 99.9900]
+Advantage mean/std: -14.7360 / 150.8917
+Advantage min/max: [-246.8941, 550.0286]
+Return mean/std: -474.5950 / 156.2496
+Return min/max: [-713.1688, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -8819.71
+Completed episode length mean: 472.0
+Extinguished count: 1
+Completed mean burned cells: 1781.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: -0.0000
+Value loss: 20735.0547
+Entropy: 0.0001
+Approx KL: -0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 33196.8262
+========================================
+Update: 13/20
+Environment steps: 3328
+
+--- Rollout Metrics ---
+Rollout reward mean: -15.5373
+Rollout reward min/max: [-45.0100, -0.0100]
+Advantage mean/std: -168.3078 / 60.4802
+Advantage min/max: [-288.1898, -4.9122]
+Return mean/std: -678.9296 / 60.5682
+Return min/max: [-798.6777, -514.6909]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: -0.0000
+Value loss: 23816.2007
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 164448.1514
+========================================
+Update: 14/20
+Environment steps: 3584
+
+--- Rollout Metrics ---
+Rollout reward mean: -13.5256
+Rollout reward min/max: [-80.0100, 0.0000]
+Advantage mean/std: -131.3656 / 144.8091
+Advantage min/max: [-438.0766, 35.2994]
+Return mean/std: -637.9661 / 109.9903
+Return min/max: [-902.6790, -477.6756]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -6169.99
+Completed episode length mean: 500.0
+Extinguished count: 0
+Completed mean burned cells: 1231.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0000
+Value loss: 28353.0690
+Entropy: 0.0000
+Approx KL: -0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 70157.1537
+========================================
+Update: 15/20
+Environment steps: 3840
+
+--- Rollout Metrics ---
+Rollout reward mean: -13.0764
+Rollout reward min/max: [-110.0100, 99.9900]
+Advantage mean/std: -46.9300 / 299.5574
+Advantage min/max: [-702.5798, 682.1127]
+Return mean/std: -632.2214 / 298.8536
+Return min/max: [-1284.7025, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -6224.04
+Completed episode length mean: 405.0
+Extinguished count: 1
+Completed mean burned cells: 1262.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0000
+Value loss: 89999.3574
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 34308.6282
+========================================
+Update: 16/20
+Environment steps: 4096
+
+--- Rollout Metrics ---
+Rollout reward mean: -17.3147
+Rollout reward min/max: [-75.0100, -0.0100]
+Advantage mean/std: -173.6451 / 164.0715
+Advantage min/max: [-543.2145, 22.7249]
+Return mean/std: -861.4188 / 161.6804
+Return min/max: [-1228.6776, -666.5026]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 0
+No episodes completed this rollout.
+
+--- Optimization Metrics ---
+Policy loss: -0.0000
+Value loss: 46632.7396
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 201642.8984
+========================================
+Update: 17/20
+Environment steps: 4352
+
+--- Rollout Metrics ---
+Rollout reward mean: -20.6936
+Rollout reward min/max: [-90.0100, 0.0000]
+Advantage mean/std: -229.1950 / 93.0188
+Advantage min/max: [-595.9539, -70.5630]
+Return mean/std: -955.3162 / 148.9460
+Return min/max: [-1507.1826, -825.4398]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -8564.99
+Completed episode length mean: 500.0
+Extinguished count: 0
+Completed mean burned cells: 1710.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: -0.0000
+Value loss: 30172.4557
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 236183.6299
+========================================
+Update: 18/20
+Environment steps: 4608
+
+--- Rollout Metrics ---
+Rollout reward mean: -22.7248
+Rollout reward min/max: [-170.0100, 99.9900]
+Advantage mean/std: -42.8548 / 497.7970
+Advantage min/max: [-1361.1168, 1275.1084]
+Return mean/std: -1134.6671 / 521.6710
+Return min/max: [-2551.8403, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -5886.62
+Completed episode length mean: 163.0
+Extinguished count: 1
+Completed mean burned cells: 1195.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: -0.0000
+Value loss: 250637.5205
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 163899.8196
+========================================
+Update: 19/20
+Environment steps: 4864
+
+--- Rollout Metrics ---
+Rollout reward mean: -36.6115
+Rollout reward min/max: [-225.0100, 99.9900]
+Advantage mean/std: -299.6342 / 717.3864
+Advantage min/max: [-1680.9113, 1176.6492]
+Return mean/std: -1536.3328 / 835.9191
+Return min/max: [-3073.9021, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 1
+Completed episode reward mean: -1177.24
+Completed episode length mean: 225.0
+Extinguished count: 1
+Completed mean burned cells: 253.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0000
+Value loss: 568451.3379
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 732924.0684
+========================================
+Update: 20/20
+Environment steps: 5120
+
+--- Rollout Metrics ---
+Rollout reward mean: -3.6818
+Rollout reward min/max: [-30.0100, 99.9900]
+Advantage mean/std: 367.7258 / 333.7244
+Advantage min/max: [10.7313, 1590.8148]
+Return mean/std: -1115.4722 / 344.1479
+Return min/max: [-1447.4519, 99.9900]
+
+--- Completed Episode Metrics ---
+Episodes completed this rollout: 2
+Completed episode reward mean: -5126.99
+Completed episode length mean: 199.5
+Extinguished count: 2
+Completed mean burned cells: 1043.0
+Completed mean crashes: 1.0
+
+--- Optimization Metrics ---
+Policy loss: 0.0000
+Value loss: 254804.7461
+Entropy: 0.0000
+Approx KL: 0.0000
+Clip fraction: 0.0000
+Ratio mean: 1.0000
+Gradient norm: 1049855.6445
+========================================
+Training completed.
+Total environment steps: 5120
+Total completed episodes: 17
+Total extinguished episodes: 14
