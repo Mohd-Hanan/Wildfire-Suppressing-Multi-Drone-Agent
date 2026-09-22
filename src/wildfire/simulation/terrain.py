@@ -48,8 +48,13 @@ class Terrain:
         # Fuel often gathers in lower, flatter areas
         base_fuel = generate_fractal_noise(width, height, self.rng, base_freq=5)
         self.fuel = np.clip(base_fuel - (self.elevation * 0.3), 0, 1)
-        self.fuel = (self.fuel - self.fuel.min()) / (self.fuel.max() - self.fuel.min() + 1e-8)
+        
+        # Normalize fuel and moisture, but compress them to [0.1, 0.8] 
+        # so they don't accidentally trigger the drone drop visuals (which are 0.0 and 1.0)
+        fuel_norm = (self.fuel - self.fuel.min()) / (self.fuel.max() - self.fuel.min() + 1e-8)
+        self.fuel = fuel_norm * 0.7 + 0.1
         
         # 4. Moisture (valleys are wetter, peaks are drier)
         self.moisture = np.clip(1.0 - self.elevation + generate_fractal_noise(width, height, self.rng, base_freq=6)*0.2, 0, 1)
-
+        moist_norm = (self.moisture - self.moisture.min()) / (self.moisture.max() - self.moisture.min() + 1e-8)
+        self.moisture = moist_norm * 0.7 + 0.1

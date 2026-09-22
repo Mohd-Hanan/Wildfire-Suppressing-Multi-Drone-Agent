@@ -147,7 +147,7 @@ class Renderer:
             if not drone.active: 
                 continue # Crashed
                 
-            color = (0, 255, 255) if drone.type == DroneType.WATER else (255, 50, 100)
+            color = (0, 0, 200) if drone.type == DroneType.WATER else (200, 0, 0)
             cx = int((drone.x + 0.5) * self.cell_size)
             cy = int((drone.y + 0.5) * self.cell_size)
             
