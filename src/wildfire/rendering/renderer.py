@@ -98,8 +98,8 @@ class Renderer:
         m_burned = fire_display == 4
         
         # Apply terrain modifications (only visible if unburned)
-        rgb_array[m_wet & m_unburned] = [50, 150, 200]    # Water drop (Blue)
-        rgb_array[m_fireline & m_unburned] = [100, 70, 50] # Retardant drop (Brown/Dirt)
+        rgb_array[m_wet & m_unburned] = [0, 255, 255]      # Wetline (Neon Cyan)
+        rgb_array[m_fireline & m_unburned] = [255, 50, 100] # Retardant (Bright Red/Pink)
         
         # Apply fire
         rgb_array[m_igniting] = [255, 220, 50]
@@ -135,19 +135,30 @@ class Renderer:
             if self.wind_particles[i, 1] > map_pixel_height: self.wind_particles[i, 1] = 0
             if self.wind_particles[i, 1] < 0: self.wind_particles[i, 1] = map_pixel_height
 
-        # 4. Draw Base Station
-        base_rect = (world.base_x * self.cell_size, world.base_y * self.cell_size, self.cell_size, self.cell_size)
-        pygame.draw.rect(self.screen, (255, 255, 255), base_rect, 2)
+        # 4. Draw Base Station (2x2 cells so it's 4 times larger)
+        base_rect = (world.base_x * self.cell_size, world.base_y * self.cell_size, self.cell_size * 2, self.cell_size * 2)
+        pygame.draw.rect(self.screen, (255, 255, 255), base_rect, 3)
+        pygame.draw.line(self.screen, (255, 255, 255), (base_rect[0], base_rect[1]), (base_rect[0]+base_rect[2], base_rect[1]+base_rect[3]), 2)
+        pygame.draw.line(self.screen, (255, 255, 255), (base_rect[0]+base_rect[2], base_rect[1]), (base_rect[0], base_rect[1]+base_rect[3]), 2)
         
-        # 5. Draw Drones
+        # 5. Draw Drones (Quadcopter shape)
         from wildfire.simulation.drone import DroneType
         for drone in world.drones:
             if not drone.active: 
                 continue # Crashed
                 
-            color = (0, 200, 255) if drone.type == DroneType.WATER else (255, 0, 255)
-            center = (int((drone.x + 0.5) * self.cell_size), int((drone.y + 0.5) * self.cell_size))
-            pygame.draw.circle(self.screen, color, center, self.cell_size // 2 - 2)
+            color = (0, 255, 255) if drone.type == DroneType.WATER else (255, 50, 100)
+            cx = int((drone.x + 0.5) * self.cell_size)
+            cy = int((drone.y + 0.5) * self.cell_size)
+            
+            # Draw central body
+            pygame.draw.circle(self.screen, color, (cx, cy), 3)
+            # Draw 4 rotors
+            o = 4 # offset
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o, cy-o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o, cy-o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o, cy+o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o, cy+o), 2)
 
         # 6. Draw HUD
         self._draw_hud(world)
@@ -183,9 +194,10 @@ class Renderer:
         
         for drone in world.drones:
             if drone.active:
-                stats.append(f"  {drone.type.name[:3]}-{drone.id}: 🔋{drone.battery} 💧{drone.payload}")
+                # Removed missing emojis, replaced with text
+                stats.append(f"  {drone.type.name[:3]}-{drone.id}: Bat:{drone.battery} Pay:{drone.payload}")
             else:
-                stats.append(f"  {drone.type.name[:3]}-{drone.id}: 💥 CRASHED")
+                stats.append(f"  {drone.type.name[:3]}-{drone.id}: CRASHED")
         
         for i, text in enumerate(stats):
             rendered = self.font_body.render(text, True, (170, 170, 180))

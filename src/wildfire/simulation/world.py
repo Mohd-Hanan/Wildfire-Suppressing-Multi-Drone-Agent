@@ -40,14 +40,26 @@ class World:
                 continue
                 
             # Refill at Base Station
-            if drone.x == self.base_x and drone.y == self.base_y:
+            if drone.x >= self.base_x and drone.x <= self.base_x + 1 and drone.y >= self.base_y and drone.y <= self.base_y + 1:
                 drone.battery = drone.max_battery
                 drone.payload = drone.max_payload
                 
             # Random movement
             dx = self.terrain.rng.integers(-1, 2)
             dy = self.terrain.rng.integers(-1, 2)
-            drone.move(dx, dy, self.width, self.height)
+            
+            target_x = np.clip(drone.x + dx, 0, self.width - 1)
+            target_y = np.clip(drone.y + dy, 0, self.height - 1)
+            
+            # Anti-Collision: Check if another drone is already at the target cell
+            collision = False
+            for other in self.drones:
+                if other != drone and other.active and other.x == target_x and other.y == target_y:
+                    collision = True
+                    break
+                    
+            if not collision:
+                drone.move(dx, dy, self.width, self.height)
             
             # Randomly test dropping payload
             if self.terrain.rng.random() < 0.05:
@@ -62,5 +74,16 @@ class World:
             if drone.active and drone.battery < 30:
                 dx = np.sign(self.base_x - drone.x)
                 dy = np.sign(self.base_y - drone.y)
-                drone.move(dx, dy, self.width, self.height)
+                
+                target_x = np.clip(drone.x + dx, 0, self.width - 1)
+                target_y = np.clip(drone.y + dy, 0, self.height - 1)
+                
+                collision = False
+                for other in self.drones:
+                    if other != drone and other.active and other.x == target_x and other.y == target_y:
+                        collision = True
+                        break
+                        
+                if not collision:
+                    drone.move(dx, dy, self.width, self.height)
 
