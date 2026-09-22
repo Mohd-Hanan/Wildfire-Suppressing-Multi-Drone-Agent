@@ -72,13 +72,44 @@ class Renderer:
         )
 
     def render_world(self, world):
-        """Renders the cached terrain and draws animated wind particles over it."""
+        """Renders the cached terrain and draws animated wind and fire over it."""
         if self.cached_terrain_surface is None:
             self._cache_terrain(world.terrain)
             
-        # 1. Draw Static Terrain
+        # 1. Overlay Fire on the terrain
+        # We use np.kron to upscale the 48x48 fire map into 192x192 without smoothing
+        # so fire looks like intense, discrete cells spreading over the smooth terrain
+        scale_factor = 4
+        fire_hr = np.kron(world.fire_manager.fire_map, np.ones((scale_factor, scale_factor), dtype=np.int8))
+        
+        # Start with a fresh copy of the static background terrain array
+        from pygame.surfarray import pixels3d
+        rgb_array = pixels3d(self.cached_terrain_surface).copy()
+        
+        # Masks for fire states (remember, the cached surface was upscaled to window size, 
+        # but fire_hr is 192x192. Wait, cached_terrain_surface is (self.width*cell_size, self.height*cell_size)
+        # If cell_size is 16, then the window is 768x768!
+        # So we should upscale fire map directly to window size!
+        fire_display = np.kron(world.fire_manager.fire_map, np.ones((self.cell_size, self.cell_size), dtype=np.int8))
+        
+        m_igniting = fire_display == 1
+        m_burning = fire_display == 2
+        m_smoldering = fire_display == 3
+        m_burned = fire_display == 4
+        
+        # Ignite (Bright Yellow)
+        rgb_array[m_igniting] = [255, 220, 50]
+        # Burning (Intense Orange/Red)
+        rgb_array[m_burning] = [255, 60, 20]
+        # Smoldering (Grey/Red glow)
+        rgb_array[m_smoldering] = [100, 50, 40]
+        # Burned (Black Charcoal)
+        rgb_array[m_burned] = [30, 30, 30]
+        
+        # Blit the composited surface
+        fire_surface = pygame.surfarray.make_surface(rgb_array)
         self.screen.fill((25, 25, 30))
-        self.screen.blit(self.cached_terrain_surface, (0, 0))
+        self.screen.blit(fire_surface, (0, 0))
         
         # 2. Animate and Draw Wind Particles
         # Velocity in pixels per frame
@@ -124,8 +155,14 @@ class Renderer:
         
         wind_dir_str = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"][int(((world.wind.direction + 22.5) % 360) / 45)]
         
+        active_fires = np.sum(world.fire_manager.fire_map == 2)
+        total_burned = np.sum(world.fire_manager.fire_map == 4)
+        status_text = "STATUS: BURNING!" if active_fires > 0 else "STATUS: IDLE / OUT"
+        
         stats = [
-            "STATUS: IDLE (No Fire)",
+            status_text,
+            f"Active Fire Cells: {active_fires}",
+            f"Total Burned: {total_burned}",
             f"Map Size: {self.width}x{self.height}",
             "",
             "ENVIRONMENT:",

@@ -28,9 +28,13 @@ def main():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                    
+            
+            # 1. Physics Step
+            world.step()
+            
+            # 2. Render Step
             renderer.render_world(world)
-            clock.tick(30) # 30 FPS animation
+            clock.tick(15) # 15 FPS simulation is a good viewing speed
     except KeyboardInterrupt:
         pass
     finally:

@@ -1,5 +1,6 @@
 from .terrain import Terrain
 from .wind import Wind
+from .fire import FireManager
 
 class World:
     def __init__(self, width: int, height: int, seed: int = None):
@@ -7,6 +8,17 @@ class World:
         self.height = height
         self.terrain = Terrain(width, height, seed)
         
-        # Default wind: 60% intensity blowing South-East (135 degrees)
-        self.wind = Wind(speed=0.6, direction_degrees=135.0)
+        # Randomize wind for every new environment episode
+        # Speed: 0.1 to 0.9, Direction: 0 to 360 degrees
+        speed = self.terrain.rng.uniform(0.1, 0.9)
+        direction = self.terrain.rng.uniform(0.0, 360.0)
+        
+        self.wind = Wind(speed=speed, direction_degrees=direction)
+        
+        # Initialize Fire
+        self.fire_manager = FireManager(width, height, self.terrain.rng)
+        self.fire_manager.ignite(width // 2, height // 2)
+
+    def step(self):
+        self.fire_manager.step(self.terrain, self.wind)
 
