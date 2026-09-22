@@ -63,6 +63,12 @@ class World:
         safe_return_battery = self.minimum_return_battery(drone) + battery_reserve
         return drone.battery >= safe_return_battery
 
+    def process_base_refills(self):
+        for drone in self.drones:
+            if drone.active and self.is_at_base(drone):
+                drone.battery = drone.max_battery
+                drone.payload = drone.max_payload
+
     def step(self):
         self.fire_manager.step(self.terrain, self.wind)
         

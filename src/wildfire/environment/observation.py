@@ -88,7 +88,7 @@ class ObservationBuilder:
 
         # Note: Suppression state (Channel 6) is pending.
 
-        spatial = np.stack([ch_fire, ch_elev, ch_slope, ch_drones, ch_base], axis=0)
+        spatial = np.stack([ch_fire, ch_elev, ch_slope, ch_drones, ch_base], axis=0).astype(np.float32)
         return spatial
 
     def _get_drone_state(self, drone: Drone, world: World) -> np.ndarray:
