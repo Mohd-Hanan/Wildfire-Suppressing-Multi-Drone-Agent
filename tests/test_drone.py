@@ -21,41 +21,41 @@ class TestDrone(unittest.TestCase):
         }
 
     def test_water_drone_initialization(self):
-        drone = Drone(0, DroneType.WATER, 0, 0, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 0, 0, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         self.assertEqual(drone.battery, 150)
         self.assertEqual(drone.payload, 5)
 
     def test_retardant_drone_initialization(self):
-        drone = Drone(1, DroneType.RETARDANT, 0, 0, self.drone_config['retardant'])
+        drone = Drone(1, DroneType.RETARDANT, 0, 0, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
         self.assertEqual(drone.battery, 100)
         self.assertEqual(drone.payload, 1)
 
     def test_water_drone_movement(self):
-        drone = Drone(0, DroneType.WATER, 0, 0, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 0, 0, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.move(1, 0, 10, 10)
         self.assertEqual(drone.battery, 149)
 
     def test_retardant_drone_movement(self):
-        drone = Drone(1, DroneType.RETARDANT, 0, 0, self.drone_config['retardant'])
+        drone = Drone(1, DroneType.RETARDANT, 0, 0, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.move(1, 0, 10, 10)
         self.assertEqual(drone.battery, 98)
 
     def test_water_drone_deployment(self):
-        drone = Drone(0, DroneType.WATER, 0, 0, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 0, 0, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         success = drone.drop()
         self.assertTrue(success)
         self.assertEqual(drone.payload, 4)
         self.assertEqual(drone.battery, 148)
 
     def test_retardant_drone_deployment(self):
-        drone = Drone(1, DroneType.RETARDANT, 0, 0, self.drone_config['retardant'])
+        drone = Drone(1, DroneType.RETARDANT, 0, 0, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
         success = drone.drop()
         self.assertTrue(success)
         self.assertEqual(drone.payload, 0)
         self.assertEqual(drone.battery, 98)
 
     def test_deployment_with_zero_payload_fails(self):
-        drone = Drone(1, DroneType.RETARDANT, 0, 0, self.drone_config['retardant'])
+        drone = Drone(1, DroneType.RETARDANT, 0, 0, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.payload = 0
         initial_battery = drone.battery
         success = drone.drop()
@@ -66,28 +66,28 @@ if __name__ == '__main__':
     unittest.main()
 
     def test_drone_inactive_at_zero_battery(self):
-        drone = Drone(0, DroneType.WATER, 10, 10, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.battery = 1
         drone.move(1, 0, 20, 20) # Move costs 1
         self.assertEqual(drone.battery, 0)
         self.assertFalse(drone.active)
         
     def test_inactive_drone_cannot_move(self):
-        drone = Drone(0, DroneType.WATER, 10, 10, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.battery = 0
         drone.move(1, 0, 20, 20)
         self.assertEqual(drone.x, 10)
         self.assertEqual(drone.y, 10)
         
     def test_inactive_drone_cannot_deploy(self):
-        drone = Drone(0, DroneType.WATER, 10, 10, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.battery = 0
         success = drone.drop()
         self.assertFalse(success)
         self.assertEqual(drone.payload, 5) # Payload unchanged
         
     def test_zero_battery_does_not_teleport(self):
-        drone = Drone(0, DroneType.WATER, 10, 10, self.drone_config['water'])
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.battery = 1
         drone.move(1, 0, 20, 20) # Causes battery to hit 0
         self.assertEqual(drone.x, 11) # Moved once and died
@@ -223,3 +223,68 @@ class TestWorld(unittest.TestCase):
         self.assertEqual(drone.y, 8)
         self.assertEqual(drone.battery, 50)
         self.assertEqual(drone.payload, 3)
+
+    def test_water_payload_lifecycle(self):
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
+        self.assertEqual(drone.payload, 5)
+        self.assertEqual(drone.battery, 150)
+        
+        for i in range(5):
+            success = drone.drop()
+            self.assertTrue(success)
+            self.assertEqual(drone.payload, 4 - i)
+            self.assertEqual(drone.battery, 150 - (i+1)*2)
+            
+        # Payload is now 0, battery is 140
+        self.assertEqual(drone.payload, 0)
+        self.assertEqual(drone.battery, 140)
+        self.assertTrue(drone.active)
+        
+        # Moving should still work
+        drone.move(1, 0, 20, 20)
+        self.assertEqual(drone.x, 11)
+        self.assertEqual(drone.battery, 139)
+        self.assertTrue(drone.active)
+        
+        # Deploying should fail without battery loss
+        success = drone.drop()
+        self.assertFalse(success)
+        self.assertEqual(drone.payload, 0)
+        self.assertEqual(drone.battery, 139)
+        
+    def test_retardant_payload_lifecycle(self):
+        drone = Drone(1, DroneType.RETARDANT, 10, 10, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
+        self.assertEqual(drone.payload, 1)
+        self.assertEqual(drone.battery, 100)
+        
+        success = drone.drop()
+        self.assertTrue(success)
+        self.assertEqual(drone.payload, 0)
+        self.assertEqual(drone.battery, 98)
+        self.assertTrue(drone.active)
+        
+        # Moving still works
+        drone.move(1, 0, 20, 20)
+        self.assertEqual(drone.x, 11)
+        self.assertEqual(drone.battery, 96)
+        self.assertTrue(drone.active)
+        
+        # Deploying should fail
+        success = drone.drop()
+        self.assertFalse(success)
+        self.assertEqual(drone.payload, 0)
+        self.assertEqual(drone.battery, 96)
+        
+    def test_deployment_fails_insufficient_battery(self):
+        drone = Drone(1, DroneType.RETARDANT, 10, 10, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
+        drone.battery = 1 # Not enough to drop (cost is 2)
+        drone.payload = 1
+        success = drone.drop()
+        self.assertFalse(success)
+        self.assertEqual(drone.battery, 1) # Battery unchanged
+        self.assertEqual(drone.payload, 1) # Payload unchanged
+        
+    def test_movement_does_not_change_payload(self):
+        drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
+        drone.move(1, 0, 20, 20)
+        self.assertEqual(drone.payload, 5)

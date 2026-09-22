@@ -53,11 +53,10 @@ class Drone:
         if self.payload < self.drop_payload_cost:
             return False
             
+        if self.battery < self.drop_cost:
+            return False
+            
         self.payload -= self.drop_payload_cost
         self.battery -= self.drop_cost
-        
-        # Prevent battery from becoming negative
-        if self.battery < 0:
-            self.battery = 0
             
         return True
