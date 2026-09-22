@@ -1,0 +1,12 @@
+environment:
+  width: 48
+  height: 48
+  num_drones: 1
+  max_steps: 500
+
+fire:
+  ignition_points: 1
+  base_spread_probability: 0.20
+
+wind:
+  speed: 0.60
