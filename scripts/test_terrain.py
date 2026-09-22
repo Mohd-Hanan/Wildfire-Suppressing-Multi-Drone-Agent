@@ -1,6 +1,7 @@
 import time
 import argparse
-from wildfire.simulation.terrain import Terrain
+import pygame
+from wildfire.simulation.world import World
 from wildfire.rendering.renderer import Renderer
 
 def main():
@@ -11,20 +12,25 @@ def main():
     parser.add_argument("--cell_size", type=int, default=16)
     args = parser.parse_args()
 
-    print(f"Generating terrain {args.width}x{args.height} with seed {args.seed}...")
-    terrain = Terrain(args.width, args.height, args.seed)
+    print(f"Generating world {args.width}x{args.height} with seed {args.seed}...")
+    world = World(args.width, args.height, args.seed)
     
-    print("Terrain generated successfully.")
-    print(f"Elevation min/max: {terrain.elevation.min():.2f}/{terrain.elevation.max():.2f}")
-    print(f"Fuel min/max: {terrain.fuel.min():.2f}/{terrain.fuel.max():.2f}")
+    print("World generated successfully.")
     
     renderer = Renderer(args.width, args.height, args.cell_size)
-    renderer.render_terrain(terrain)
     
     print("Rendering... Press Ctrl+C to close.")
+    clock = pygame.time.Clock()
+    running = True
     try:
-        while True:
-            time.sleep(0.1)
+        while running:
+            # Handle pygame events so the window doesn't freeze
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    running = False
+                    
+            renderer.render_world(world)
+            clock.tick(30) # 30 FPS animation
     except KeyboardInterrupt:
         pass
     finally:
