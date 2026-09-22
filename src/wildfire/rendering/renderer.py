@@ -72,47 +72,46 @@ class Renderer:
         )
 
     def render_world(self, world):
-        """Renders the cached terrain and draws animated wind and fire over it."""
+        """Renders the cached terrain and draws animated wind, fire, and drones over it."""
         if self.cached_terrain_surface is None:
             self._cache_terrain(world.terrain)
             
-        # 1. Overlay Fire on the terrain
-        # We use np.kron to upscale the 48x48 fire map into 192x192 without smoothing
-        # so fire looks like intense, discrete cells spreading over the smooth terrain
         scale_factor = 4
-        fire_hr = np.kron(world.fire_manager.fire_map, np.ones((scale_factor, scale_factor), dtype=np.int8))
         
-        # Start with a fresh copy of the static background terrain array
         from pygame.surfarray import pixels3d
         rgb_array = pixels3d(self.cached_terrain_surface).copy()
         
-        # Masks for fire states (remember, the cached surface was upscaled to window size, 
-        # but fire_hr is 192x192. Wait, cached_terrain_surface is (self.width*cell_size, self.height*cell_size)
-        # If cell_size is 16, then the window is 768x768!
-        # So we should upscale fire map directly to window size!
+        # 1. Dynamically Draw Wetlines and Firelines (Drones modify the terrain)
+        moist_display = np.kron(world.terrain.moisture, np.ones((self.cell_size, self.cell_size)))
+        fuel_display = np.kron(world.terrain.fuel, np.ones((self.cell_size, self.cell_size)))
+        
+        m_wet = moist_display >= 0.99
+        m_fireline = fuel_display <= 0.01
+        
+        # 2. Overlay Fire 
         fire_display = np.kron(world.fire_manager.fire_map, np.ones((self.cell_size, self.cell_size), dtype=np.int8))
         
+        m_unburned = fire_display == 0
         m_igniting = fire_display == 1
         m_burning = fire_display == 2
         m_smoldering = fire_display == 3
         m_burned = fire_display == 4
         
-        # Ignite (Bright Yellow)
+        # Apply terrain modifications (only visible if unburned)
+        rgb_array[m_wet & m_unburned] = [50, 150, 200]    # Water drop (Blue)
+        rgb_array[m_fireline & m_unburned] = [100, 70, 50] # Retardant drop (Brown/Dirt)
+        
+        # Apply fire
         rgb_array[m_igniting] = [255, 220, 50]
-        # Burning (Intense Orange/Red)
         rgb_array[m_burning] = [255, 60, 20]
-        # Smoldering (Grey/Red glow)
         rgb_array[m_smoldering] = [100, 50, 40]
-        # Burned (Black Charcoal)
         rgb_array[m_burned] = [30, 30, 30]
         
-        # Blit the composited surface
         fire_surface = pygame.surfarray.make_surface(rgb_array)
         self.screen.fill((25, 25, 30))
         self.screen.blit(fire_surface, (0, 0))
         
-        # 2. Animate and Draw Wind Particles
-        # Velocity in pixels per frame
+        # 3. Animate and Draw Wind Particles
         vx = world.wind.u * world.wind.speed * 8.0 
         vy = world.wind.v * world.wind.speed * 8.0
         
@@ -122,26 +121,35 @@ class Renderer:
         for i in range(self.num_wind_particles):
             px, py = self.wind_particles[i]
             
-            # Draw a faint white streak representing wind
             start_pos = (int(px), int(py))
             end_pos = (int(px + vx * 2), int(py + vy * 2))
             
-            # Fade out particles based on a random length
             alpha = int(100 * world.wind.speed)
-            streak_surface = pygame.Surface((abs(end_pos[0]-start_pos[0])+2, abs(end_pos[1]-start_pos[1])+2), pygame.SRCALPHA)
             pygame.draw.line(self.screen, (255, 255, 255, alpha), start_pos, end_pos, 2)
             
-            # Move particle
             self.wind_particles[i, 0] += vx
             self.wind_particles[i, 1] += vy
             
-            # Wrap around screen edges
             if self.wind_particles[i, 0] > map_pixel_width: self.wind_particles[i, 0] = 0
             if self.wind_particles[i, 0] < 0: self.wind_particles[i, 0] = map_pixel_width
             if self.wind_particles[i, 1] > map_pixel_height: self.wind_particles[i, 1] = 0
             if self.wind_particles[i, 1] < 0: self.wind_particles[i, 1] = map_pixel_height
 
-        # 3. Draw HUD
+        # 4. Draw Base Station
+        base_rect = (world.base_x * self.cell_size, world.base_y * self.cell_size, self.cell_size, self.cell_size)
+        pygame.draw.rect(self.screen, (255, 255, 255), base_rect, 2)
+        
+        # 5. Draw Drones
+        from wildfire.simulation.drone import DroneType
+        for drone in world.drones:
+            if not drone.active: 
+                continue # Crashed
+                
+            color = (0, 200, 255) if drone.type == DroneType.WATER else (255, 0, 255)
+            center = (int((drone.x + 0.5) * self.cell_size), int((drone.y + 0.5) * self.cell_size))
+            pygame.draw.circle(self.screen, color, center, self.cell_size // 2 - 2)
+
+        # 6. Draw HUD
         self._draw_hud(world)
         pygame.display.flip()
         
@@ -171,8 +179,13 @@ class Renderer:
             f"  Avg Elev: {world.terrain.elevation.mean():.2f}",
             "",
             "DRONE FLEET:",
-            "  - Offline"
         ]
+        
+        for drone in world.drones:
+            if drone.active:
+                stats.append(f"  {drone.type.name[:3]}-{drone.id}: 🔋{drone.battery} 💧{drone.payload}")
+            else:
+                stats.append(f"  {drone.type.name[:3]}-{drone.id}: 💥 CRASHED")
         
         for i, text in enumerate(stats):
             rendered = self.font_body.render(text, True, (170, 170, 180))
