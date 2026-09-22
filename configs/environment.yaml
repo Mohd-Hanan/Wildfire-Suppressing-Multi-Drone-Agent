@@ -1,12 +1,16 @@
-environment:
-  width: 48
-  height: 48
-  num_drones: 1
-  max_steps: 500
+drone:
+  water:
+    max_battery: 150
+    max_payload: 5
+    move_cost: 1
+    drop_cost: 2
+    drop_payload_cost: 1
+  retardant:
+    max_battery: 100
+    max_payload: 1
+    move_cost: 2
+    drop_cost: 2
+    drop_payload_cost: 1
 
-fire:
-  ignition_points: 1
-  base_spread_probability: 0.20
-
-wind:
-  speed: 0.60
+return_to_base:
+  battery_reserve: 5
