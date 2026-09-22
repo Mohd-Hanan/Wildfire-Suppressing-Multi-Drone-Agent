@@ -17,7 +17,11 @@ class World:
         
         # Initialize Fire
         self.fire_manager = FireManager(width, height, self.terrain.rng)
-        self.fire_manager.ignite(width // 2, height // 2)
+        
+        # Randomize initial fire location so the agent learns to search!
+        start_x = self.terrain.rng.integers(0, width)
+        start_y = self.terrain.rng.integers(0, height)
+        self.fire_manager.ignite(start_x, start_y)
 
     def step(self):
         self.fire_manager.step(self.terrain, self.wind)
