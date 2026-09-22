@@ -22,3 +22,6 @@ reward:
   step_penalty: 0.01
   drone_crash_penalty: 10.0
   fire_extinguished_reward: 100.0
+
+environment:
+  max_steps: 500
