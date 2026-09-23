@@ -9,6 +9,8 @@ class FireState:
 
 class FireManager:
     def __init__(self, width: int, height: int, rng: np.random.Generator = None):
+        self.base_spread_rate = 0.08
+        self.base_burning_duration = 20
         self.width = width
         self.height = height
         self.rng = rng if rng is not None else np.random.default_rng()
@@ -20,7 +22,7 @@ class FireManager:
         """Forces a specific cell to ignite immediately."""
         if 0 <= x < self.width and 0 <= y < self.height:
             self.fire_map[x, y] = FireState.BURNING
-            self.burn_timers[x, y] = 20 # Stays burning for 20 ticks
+            self.burn_timers[x, y] = self.base_burning_duration # Stays burning for 20 ticks
             
     def step(self, terrain, wind):
         """Progresses the cellular automata simulation by one tick."""
@@ -29,7 +31,7 @@ class FireManager:
         # IGNITING -> BURNING
         igniting = (self.fire_map == FireState.IGNITING)
         self.fire_map[igniting] = FireState.BURNING
-        self.burn_timers[igniting] = 20 # Base burn time
+        self.burn_timers[igniting] = self.base_burning_duration # Base burn time
         
         # BURNING -> SMOLDERING
         burning = (self.fire_map == FireState.BURNING)
@@ -74,7 +76,7 @@ class FireManager:
             # A) Fuel and Moisture Factor
             fuel = terrain.fuel[target_mask]
             moisture = terrain.moisture[target_mask]
-            base_p = 0.08 * (fuel + 0.1) * (1.0 - moisture * 0.7)
+            base_p = self.base_spread_rate * (fuel + 0.1) * (1.0 - moisture * 0.7)
             
             # B) Slope Factor (Fire travels much faster uphill)
             # Get the elevation of the burning neighbor that is spreading the fire

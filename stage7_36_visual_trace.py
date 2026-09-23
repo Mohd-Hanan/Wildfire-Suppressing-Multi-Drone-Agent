@@ -13,10 +13,10 @@ def run_visual():
     import yaml
     with open("configs/environment.yaml", 'r') as f:
         config = yaml.safe_load(f)
-    config['drones']['num_water_drones'] = 1
-    config['drones']['num_retardant_drones'] = 0
     config['reward']['drone_crash_penalty'] = 10.0
     config['return_to_base'] = {'battery_reserve': 5}
+    config['drone']['water']['max_battery'] = 150
+    config['drone']['water']['max_payload'] = 5
     
     with open("configs/temp_visual_config.yaml", 'w') as f:
         yaml.dump(config, f)
@@ -62,7 +62,7 @@ def run_visual():
         if step % 10 == 0 or not drone.active:
             margin = env.world.battery_margin(drone)
             req_bat = env.world.required_battery(drone)
-            dist_base = env.world.distance_to_base(drone.x, drone.y)
+            dist_base = env.world.distance_to_base(drone)
             
             # Fire vector is in observation!
             # observation is 9-dimensional: [battery, payload, margin, dist_to_base, nx, ny, fire_dx, fire_dy, fire_distance]

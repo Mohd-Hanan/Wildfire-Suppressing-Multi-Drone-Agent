@@ -1,25 +1,11 @@
+with open("stage7_37_feasibility.py", "r") as f:
+    text = f.read()
+
 import re
+text = text.replace("stats['suppressed'].append((env.world.fire_manager.fire_map == -1).sum())", "")
+text = text.replace("_, _, terminated, truncated, _ = env.step(action)", "_, _, terminated, truncated, info = env.step(action)\n            ep_suppressed += info.get('newly_suppressed', 0)")
+text = text.replace("done = False\n        step = 0", "done = False\n        step = 0\n        ep_suppressed = 0")
+text = text.replace("stats['burned'].append((env.world.fire_manager.fire_map > 0).sum())", "stats['burned'].append((env.world.fire_manager.fire_map > 0).sum())\n        stats['suppressed'].append(ep_suppressed)")
 
-with open("stage7_35_train_eval.py", "r") as f:
-    content = f.read()
-
-replacement = """    def get_action_and_value(self, obs, action=None):
-        obs_t = {k: torch.tensor(v, dtype=torch.float32, device=self.device) if not isinstance(v, torch.Tensor) else v for k,v in obs.items()}
-        if obs_t["spatial"].dim() == 3: # Handle unbatched
-            obs_t = {k: v.unsqueeze(0) for k,v in obs_t.items()}
-            
-        action_logits, state_value = self.forward(obs_t)
-        probs = torch.distributions.Categorical(logits=action_logits)
-        if action is None:
-            action = probs.sample()
-        return action, probs.log_prob(action), probs.entropy(), state_value"""
-
-content = re.sub(
-    r'    def get_action_and_value\(self, obs, action=None\):.*?return action, probs\.log_prob\(action\), probs\.entropy\(\), state_value',
-    replacement,
-    content,
-    flags=re.DOTALL
-)
-
-with open("stage7_35_train_eval.py", "w") as f:
-    f.write(content)
+with open("stage7_37_feasibility.py", "w") as f:
+    f.write(text)

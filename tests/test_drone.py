@@ -22,8 +22,8 @@ class TestDrone(unittest.TestCase):
 
     def test_water_drone_initialization(self):
         drone = Drone(0, DroneType.WATER, 0, 0, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
-        self.assertEqual(drone.battery, 150)
-        self.assertEqual(drone.payload, 5)
+        self.assertEqual(drone.battery, drone.max_battery)
+        self.assertEqual(drone.payload, drone.max_payload)
 
     def test_retardant_drone_initialization(self):
         drone = Drone(1, DroneType.RETARDANT, 0, 0, {'max_battery': 100, 'max_payload': 1, 'move_cost': 2, 'drop_cost': 2, 'drop_payload_cost': 1})
@@ -84,7 +84,7 @@ if __name__ == '__main__':
         drone.battery = 0
         success = drone.drop()
         self.assertFalse(success)
-        self.assertEqual(drone.payload, 5) # Payload unchanged
+        self.assertEqual(drone.payload, drone.max_payload) # Payload unchanged
         
     def test_zero_battery_does_not_teleport(self):
         drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
@@ -116,8 +116,8 @@ class TestWorld(unittest.TestCase):
             drone.battery = drone.max_battery
             drone.payload = drone.max_payload
             
-        self.assertEqual(drone.battery, 150)
-        self.assertEqual(drone.payload, 5)
+        self.assertEqual(drone.battery, drone.max_battery)
+        self.assertEqual(drone.payload, drone.max_payload)
 
     def test_base_refill_retardant(self):
         world = World(48, 48, seed=42)
@@ -226,8 +226,8 @@ class TestWorld(unittest.TestCase):
 
     def test_water_payload_lifecycle(self):
         drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
-        self.assertEqual(drone.payload, 5)
-        self.assertEqual(drone.battery, 150)
+        self.assertEqual(drone.payload, drone.max_payload)
+        self.assertEqual(drone.battery, drone.max_battery)
         
         for i in range(5):
             success = drone.drop()
@@ -287,4 +287,4 @@ class TestWorld(unittest.TestCase):
     def test_movement_does_not_change_payload(self):
         drone = Drone(0, DroneType.WATER, 10, 10, {'max_battery': 150, 'max_payload': 5, 'move_cost': 1, 'drop_cost': 2, 'drop_payload_cost': 1})
         drone.move(1, 0, 20, 20)
-        self.assertEqual(drone.payload, 5)
+        self.assertEqual(drone.payload, drone.max_payload)

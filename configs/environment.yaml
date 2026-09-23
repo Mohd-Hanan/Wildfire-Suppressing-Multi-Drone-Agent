@@ -1,7 +1,7 @@
 drone:
   water:
-    max_battery: 150
-    max_payload: 5
+    max_battery: 250
+    max_payload: 20
     move_cost: 1
     drop_cost: 2
     drop_payload_cost: 1
