@@ -12,7 +12,7 @@ def main():
     device = torch.device("cpu")
     policy = SeparateActorCritic(device=device, drone_type="WATER")
     
-    checkpoint_path = "stage7_18_checkpoint.pth"
+    checkpoint_path = "stage7_single_drone_200_baseline.pth"
     print(f"Loading checkpoint: {checkpoint_path}")
     checkpoint = torch.load(checkpoint_path, weights_only=True)
     policy.load_state_dict(checkpoint['model_state_dict'])
