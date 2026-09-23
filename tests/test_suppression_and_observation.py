@@ -71,9 +71,9 @@ class TestSuppressionObservation(unittest.TestCase):
         self.assertEqual(env.world.terrain.moisture[10, 10], 1.0)
         
         self.assertEqual(info['newly_suppressed_cells'], 1)
-        self.assertEqual(info['suppression_reward'], 2.0)
+        self.assertEqual(info['suppression_reward'], 10.0)
         self.assertEqual(info['extinction_reward'], 50.0)
-        self.assertTrue(np.isclose(reward, 2.0 + 50.0 - 0.01))
+        self.assertTrue(np.isclose(reward, 10.0 + 50.0 - 0.01))
 
     def test_water_on_non_fire(self):
         env = WildfireEnv()

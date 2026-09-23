@@ -1,4 +1,4 @@
-import pytest
+
 import yaml
 from wildfire.environment.wildfire_env import WildfireEnv
 

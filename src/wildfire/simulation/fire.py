@@ -8,9 +8,10 @@ class FireState:
     BURNED = 4
 
 class FireManager:
-    def __init__(self, width: int, height: int, rng: np.random.Generator = None):
-        self.base_spread_rate = 0.08
-        self.base_burning_duration = 20
+    def __init__(self, width: int, height: int, rng: np.random.Generator = None, config: dict = None):
+        config = config or {}
+        self.base_spread_rate = config.get('base_spread_rate', 0.08)
+        self.base_burning_duration = config.get('base_burning_duration', 20)
         self.width = width
         self.height = height
         self.rng = rng if rng is not None else np.random.default_rng()
