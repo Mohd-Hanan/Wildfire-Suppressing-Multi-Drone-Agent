@@ -35,7 +35,7 @@ class RewardCalculator:
                           (fm == FireState.BURNING) | 
                           (fm == FireState.SMOLDERING)))
 
-    def calculate(self, world: World, drones: List[Drone], hit_boundary: bool = False) -> Tuple[float, Dict[str, float]]:
+    def calculate(self, world: World, drones: List[Drone], hit_boundary: bool = False, newly_suppressed_cells: int = 0) -> Tuple[float, Dict[str, float]]:
         # 1. First-step initialization (no time has passed yet)
         current_affected = self._get_affected_cells(world)
         current_active_fire = self._get_active_fire_cells(world)
@@ -60,8 +60,7 @@ class RewardCalculator:
         new_burned_cells = max(0, current_affected - self.prev_affected_cells)
         damage_penalty = -self.new_burned_cell_penalty * new_burned_cells
 
-        # 3. Suppression & Containment (Pending)
-        newly_suppressed_cells = 0
+        # 3. Suppression & Containment
         suppression_reward = self.effective_suppression_reward * newly_suppressed_cells
         containment_progress = 0.0
 

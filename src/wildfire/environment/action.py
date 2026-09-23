@@ -1,5 +1,7 @@
 from wildfire.simulation.world import World
 from wildfire.simulation.drone import Drone, DroneType
+from wildfire.simulation.fire import FireState
+from typing import Tuple
 
 class ActionExecutor:
     """
@@ -14,28 +16,36 @@ class ActionExecutor:
     """
     
     @staticmethod
-    def execute(drone: Drone, world: World, action_id: int) -> bool:
+    def execute(drone: Drone, world: World, action_id: int) -> Tuple[bool, int]:
+        """Returns (hit_boundary, newly_suppressed_cells)"""
         if not drone.active:
-            return False
+            return False, 0
+
+        hit_boundary = False
+        suppressed = 0
 
         if action_id == 0:
-            return False # Stay
+            pass # Stay
         elif action_id == 1:
-            return drone.move(0, -1, world.width, world.height)
+            hit_boundary = drone.move(0, -1, world.width, world.height)
         elif action_id == 2:
-            return drone.move(0, 1, world.width, world.height)
+            hit_boundary = drone.move(0, 1, world.width, world.height)
         elif action_id == 3:
-            return drone.move(1, 0, world.width, world.height)
+            hit_boundary = drone.move(1, 0, world.width, world.height)
         elif action_id == 4:
-            return drone.move(-1, 0, world.width, world.height)
+            hit_boundary = drone.move(-1, 0, world.width, world.height)
         elif action_id == 5:
             if drone.type == DroneType.WATER:
                 if drone.drop():
                     world.terrain.moisture[drone.x, drone.y] = 1.0
-            return False
+                    fm = world.fire_manager.fire_map
+                    if fm[drone.x, drone.y] in (FireState.IGNITING, FireState.BURNING, FireState.SMOLDERING):
+                        fm[drone.x, drone.y] = FireState.BURNED
+                        world.fire_manager.burn_timers[drone.x, drone.y] = 0
+                        suppressed = 1
         elif action_id == 6:
             if drone.type == DroneType.RETARDANT:
                 if drone.drop():
                     world.terrain.fuel[drone.x, drone.y] = 0.0
-            return False
-        return False
+                    
+        return hit_boundary, suppressed

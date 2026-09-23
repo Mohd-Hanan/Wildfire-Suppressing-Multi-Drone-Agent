@@ -19,7 +19,7 @@ class ActorCritic(nn.Module):
         
         # Output of Flatten: 32 * 11 * 11 = 3872 features
         cnn_out_features = 32 * 11 * 11
-        non_spatial_features = 9
+        non_spatial_features = 12
         total_features = cnn_out_features + non_spatial_features
         
         # Shared Feature Layer

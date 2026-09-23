@@ -109,7 +109,29 @@ class ObservationBuilder:
         nx = drone.x / (world.width - 1)
         ny = drone.y / (world.height - 1)
         
-        return np.array([battery, payload, normalized_margin, dist, nx, ny], dtype=np.float32)
+        # Global Fire Information
+        fm = world.fire_manager.fire_map
+        active_mask = (fm == FireState.IGNITING) | (fm == FireState.BURNING) | (fm == FireState.SMOLDERING)
+        active_coords = np.argwhere(active_mask)
+        
+        if len(active_coords) == 0:
+            fire_dx = 0.0
+            fire_dy = 0.0
+            fire_distance = 0.0
+        else:
+            distances = np.sqrt((active_coords[:, 0] - drone.x)**2 + (active_coords[:, 1] - drone.y)**2)
+            nearest_idx = np.argmin(distances)
+            nearest_x, nearest_y = active_coords[nearest_idx]
+            
+            dx = nearest_x - drone.x
+            dy = nearest_y - drone.y
+            
+            fire_dx = dx / world.width
+            fire_dy = dy / world.height
+            max_dist = np.sqrt(world.width**2 + world.height**2)
+            fire_distance = distances[nearest_idx] / max_dist
+        
+        return np.array([battery, payload, normalized_margin, dist, nx, ny, fire_dx, fire_dy, fire_distance], dtype=np.float32)
 
     def _get_wind_state(self, world: World) -> np.ndarray:
         # Assuming max wind speed around 1.0

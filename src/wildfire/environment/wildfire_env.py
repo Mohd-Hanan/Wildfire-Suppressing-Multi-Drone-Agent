@@ -36,7 +36,7 @@ class WildfireEnv(gym.Env):
         # Observation space matching exactly the existing observation system
         self.observation_space = spaces.Dict({
             "spatial": spaces.Box(low=0.0, high=1.0, shape=(5, 11, 11), dtype=np.float32),
-            "drone": spaces.Box(low=-1.0, high=1.0, shape=(6,), dtype=np.float32),
+            "drone": spaces.Box(low=-1.0, high=1.0, shape=(9,), dtype=np.float32),
             "wind": spaces.Box(low=-1.0, high=1.0, shape=(3,), dtype=np.float32)
         })
         
@@ -64,7 +64,7 @@ class WildfireEnv(gym.Env):
         drone = self.world.drones[self.controlled_drone_idx]
         
         # A. Execute action
-        hit_boundary = self.action_executor.execute(drone, self.world, action)
+        hit_boundary, suppressed_cells = self.action_executor.execute(drone, self.world, action)
         
         # B. Advance the wildfire/world simulation by one timestep
         # We step the fire physics directly, skipping the dummy random-walk AI in world.step()
@@ -76,7 +76,7 @@ class WildfireEnv(gym.Env):
         self.step_count += 1
         
         # D. Calculate reward
-        reward, reward_info = self.reward_calculator.calculate(self.world, self.world.drones, hit_boundary)
+        reward, reward_info = self.reward_calculator.calculate(self.world, self.world.drones, hit_boundary, suppressed_cells)
         
         # E. Check termination
         terminated, truncated, term_info = self.termination_checker.check(self.world, self.step_count)

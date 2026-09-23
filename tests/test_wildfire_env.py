@@ -23,7 +23,7 @@ class TestWildfireEnv(unittest.TestCase):
         obs, info = self.env.reset()
         self.assertIn("spatial", obs)
         self.assertEqual(obs["spatial"].shape, (5, 11, 11))
-        self.assertEqual(obs["drone"].shape, (6,))
+        self.assertEqual(obs["drone"].shape, (9,))
         self.assertEqual(obs["wind"].shape, (3,))
         self.assertEqual(self.env.step_count, 0)
 

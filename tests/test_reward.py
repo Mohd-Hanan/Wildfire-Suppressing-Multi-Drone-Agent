@@ -35,9 +35,9 @@ class TestRewardSystem(unittest.TestCase):
         r, info = self.reward_calc.calculate(self.world, self.world.drones)
         
         self.assertEqual(info['new_burned_cells'], 1)
-        self.assertEqual(info['damage_penalty'], -5.0)
+        self.assertEqual(info['damage_penalty'], -0.1)
         self.assertEqual(info['step_penalty'], -0.01)
-        self.assertAlmostEqual(r, -5.01)
+        self.assertAlmostEqual(r, -0.11)
 
     def test_multiple_new_burned_cells(self):
         self.reward_calc.calculate(self.world, self.world.drones) # step 0
@@ -47,8 +47,8 @@ class TestRewardSystem(unittest.TestCase):
         r, info = self.reward_calc.calculate(self.world, self.world.drones)
         
         self.assertEqual(info['new_burned_cells'], 5)
-        self.assertEqual(info['damage_penalty'], -25.0)
-        self.assertAlmostEqual(r, -25.01)
+        self.assertEqual(info['damage_penalty'], -0.5)
+        self.assertAlmostEqual(r, -0.51)
 
     def test_no_new_burned_cells(self):
         self.world.fire_manager.fire_map[0, 0] = FireState.BURNING
@@ -83,9 +83,9 @@ class TestRewardSystem(unittest.TestCase):
         self.world.fire_manager.fire_map[0, 0] = FireState.UNBURNED
         r, info = self.reward_calc.calculate(self.world, self.world.drones)
         
-        self.assertEqual(info['extinction_reward'], 100.0)
+        self.assertEqual(info['extinction_reward'], 50.0)
         # Note: new_burned_cells is max(0, -1) = 0
-        self.assertAlmostEqual(r, 99.99)
+        self.assertAlmostEqual(r, 49.99)
         
         # Subsequent step should not repeatedly reward
         r2, info2 = self.reward_calc.calculate(self.world, self.world.drones)

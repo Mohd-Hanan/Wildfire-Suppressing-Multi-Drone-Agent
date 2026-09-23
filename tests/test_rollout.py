@@ -32,7 +32,7 @@ class TestRollout(unittest.TestCase):
         spatial, drone, wind, actions, rewards, terminated, truncated, values, log_probs = buffer.get_batch(self.device)
         
         self.assertEqual(spatial.shape, (2, 5, 11, 11))
-        self.assertEqual(drone.shape, (2, 6))
+        self.assertEqual(drone.shape, (2, 9))
         self.assertEqual(wind.shape, (2, 3))
         
         self.assertEqual(actions.shape, (2,))

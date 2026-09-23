@@ -26,7 +26,7 @@ class SeparateActorCritic(nn.Module):
             nn.Conv2d(16, 32, 3, padding=1), nn.ReLU(),
             nn.Flatten()
         )
-        self.actor_mlp = nn.Sequential(nn.Linear(32*11*11 + 9, 64), nn.ReLU())
+        self.actor_mlp = nn.Sequential(nn.Linear(32*11*11 + 12, 64), nn.ReLU())
         self.actor_head = nn.Linear(64, 7)
         
         self.critic_cnn = nn.Sequential(
@@ -34,7 +34,7 @@ class SeparateActorCritic(nn.Module):
             nn.Conv2d(16, 32, 3, padding=1), nn.ReLU(),
             nn.Flatten()
         )
-        self.critic_mlp = nn.Sequential(nn.Linear(32*11*11 + 9, 64), nn.ReLU())
+        self.critic_mlp = nn.Sequential(nn.Linear(32*11*11 + 12, 64), nn.ReLU())
         self.critic_head = nn.Linear(64, 1)
 
         self.to(self.device)
