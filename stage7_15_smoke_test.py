@@ -16,9 +16,10 @@ def get_grad_norm(parameters):
     return total_norm.item()
 
 class SeparateActorCritic(nn.Module):
-    def __init__(self, device=torch.device("cpu")):
+    def __init__(self, device=torch.device("cpu"), drone_type="WATER"):
         super(SeparateActorCritic, self).__init__()
         self.device = device
+        self.drone_type = drone_type
         
         self.actor_cnn = nn.Sequential(
             nn.Conv2d(5, 16, 3, padding=1), nn.ReLU(),
@@ -38,6 +39,14 @@ class SeparateActorCritic(nn.Module):
 
         self.to(self.device)
         
+    def get_action_mask(self, batch_size):
+        mask = torch.ones((batch_size, 7), dtype=torch.bool, device=self.device)
+        if self.drone_type == "WATER":
+            mask[:, 6] = False # Mask retardant
+        elif self.drone_type == "RETARDANT":
+            mask[:, 5] = False # Mask water
+        return mask
+        
     def forward(self, obs):
         spatial = obs["spatial"]
         if not isinstance(spatial, torch.Tensor):
@@ -54,6 +63,9 @@ class SeparateActorCritic(nn.Module):
         
         a_comb = torch.cat([self.actor_cnn(spatial), non_spatial], dim=-1)
         logits = self.actor_head(self.actor_mlp(a_comb))
+        
+        mask = self.get_action_mask(logits.size(0))
+        logits = logits.masked_fill(~mask, -1e9)
         
         c_comb = torch.cat([self.critic_cnn(spatial), non_spatial], dim=-1)
         value = self.critic_head(self.critic_mlp(c_comb)).squeeze(-1)

@@ -152,13 +152,16 @@ class Renderer:
             cy = int((drone.y + 0.5) * self.cell_size)
             
             # Draw central body
-            pygame.draw.circle(self.screen, color, (cx, cy), 12)
+            pygame.draw.circle(self.screen, color, (cx, cy), 3)
             # Draw 4 rotors
             o = 4 # offset
-            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o*2, cy-o*2), 6)
-            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o*2, cy-o*2), 6)
-            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o*2, cy+o*2), 6)
-            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o*2, cy+o*2), 6)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o, cy-o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o, cy-o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx-o, cy+o), 2)
+            pygame.draw.circle(self.screen, (200, 200, 200), (cx+o, cy+o), 2)
+            
+            if drone.id == 0:
+                pygame.draw.circle(self.screen, (255, 255, 0), (cx, cy), 8, 1)
 
         # 6. Draw HUD
         self._draw_hud(world)
