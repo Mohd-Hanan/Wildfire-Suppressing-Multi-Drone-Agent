@@ -14,25 +14,28 @@ class ActionExecutor:
     """
     
     @staticmethod
-    def execute(drone: Drone, world: World, action_id: int):
+    def execute(drone: Drone, world: World, action_id: int) -> bool:
         if not drone.active:
-            return
+            return False
 
         if action_id == 0:
-            pass # Stay
+            return False # Stay
         elif action_id == 1:
-            drone.move(0, -1, world.width, world.height)
+            return drone.move(0, -1, world.width, world.height)
         elif action_id == 2:
-            drone.move(0, 1, world.width, world.height)
+            return drone.move(0, 1, world.width, world.height)
         elif action_id == 3:
-            drone.move(1, 0, world.width, world.height)
+            return drone.move(1, 0, world.width, world.height)
         elif action_id == 4:
-            drone.move(-1, 0, world.width, world.height)
+            return drone.move(-1, 0, world.width, world.height)
         elif action_id == 5:
             if drone.type == DroneType.WATER:
                 if drone.drop():
                     world.terrain.moisture[drone.x, drone.y] = 1.0
+            return False
         elif action_id == 6:
             if drone.type == DroneType.RETARDANT:
                 if drone.drop():
                     world.terrain.fuel[drone.x, drone.y] = 0.0
+            return False
+        return False

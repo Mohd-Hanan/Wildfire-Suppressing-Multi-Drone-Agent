@@ -64,7 +64,7 @@ class WildfireEnv(gym.Env):
         drone = self.world.drones[self.controlled_drone_idx]
         
         # A. Execute action
-        self.action_executor.execute(drone, self.world, action)
+        hit_boundary = self.action_executor.execute(drone, self.world, action)
         
         # B. Advance the wildfire/world simulation by one timestep
         # We step the fire physics directly, skipping the dummy random-walk AI in world.step()
@@ -76,7 +76,7 @@ class WildfireEnv(gym.Env):
         self.step_count += 1
         
         # D. Calculate reward
-        reward, reward_info = self.reward_calculator.calculate(self.world, self.world.drones)
+        reward, reward_info = self.reward_calculator.calculate(self.world, self.world.drones, hit_boundary)
         
         # E. Check termination
         terminated, truncated, term_info = self.termination_checker.check(self.world, self.step_count)

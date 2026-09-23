@@ -13,6 +13,7 @@ class RewardCalculator:
         self.step_penalty = float(rc.get('step_penalty', 0.01))
         self.drone_crash_penalty = float(rc.get('drone_crash_penalty', 10.0))
         self.fire_extinguished_reward = float(rc.get('fire_extinguished_reward', 100.0))
+        self.boundary_hit_penalty = float(rc.get('boundary_hit_penalty', 0.1))
 
         self.reset()
 
@@ -34,7 +35,7 @@ class RewardCalculator:
                           (fm == FireState.BURNING) | 
                           (fm == FireState.SMOLDERING)))
 
-    def calculate(self, world: World, drones: List[Drone]) -> Tuple[float, Dict[str, float]]:
+    def calculate(self, world: World, drones: List[Drone], hit_boundary: bool = False) -> Tuple[float, Dict[str, float]]:
         # 1. First-step initialization (no time has passed yet)
         current_affected = self._get_affected_cells(world)
         current_active_fire = self._get_active_fire_cells(world)
@@ -51,6 +52,7 @@ class RewardCalculator:
                 'newly_suppressed_cells': 0, 'suppression_reward': 0.0,
                 'containment_progress': 0.0, 'step_penalty': 0.0,
                 'crash_penalty': 0.0, 'extinction_reward': 0.0,
+                'boundary_penalty': -self.boundary_hit_penalty if hit_boundary else 0.0,
                 'total_reward': 0.0
             }
 
@@ -65,6 +67,9 @@ class RewardCalculator:
 
         # 4. Step penalty
         step_penalty = -self.step_penalty
+        
+        # 4b. Boundary penalty
+        boundary_penalty = -self.boundary_hit_penalty if hit_boundary else 0.0
 
         # 5. Crash penalty
         crash_penalty = 0.0
@@ -85,6 +90,7 @@ class RewardCalculator:
                         suppression_reward + 
                         containment_progress + 
                         step_penalty + 
+                        boundary_penalty +
                         crash_penalty + 
                         extinction_reward)
 
@@ -99,6 +105,7 @@ class RewardCalculator:
             'suppression_reward': suppression_reward,
             'containment_progress': containment_progress,
             'step_penalty': step_penalty,
+            'boundary_penalty': boundary_penalty,
             'crash_penalty': crash_penalty,
             'extinction_reward': extinction_reward,
             'total_reward': total_reward

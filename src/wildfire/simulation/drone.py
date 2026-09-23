@@ -31,19 +31,27 @@ class Drone:
         """Drone is active as long as it has battery."""
         return self.battery > 0
         
-    def move(self, dx: int, dy: int, max_width: int, max_height: int):
-        """Moves the drone and consumes battery."""
+    def move(self, dx: int, dy: int, max_width: int, max_height: int) -> bool:
+        """Moves the drone and consumes battery. Returns True if movement was blocked by boundary."""
         if not self.active:
-            return
+            return False
             
-        self.x = int(np.clip(self.x + dx, 0, max_width - 1))
-        self.y = int(np.clip(self.y + dy, 0, max_height - 1))
+        target_x = self.x + dx
+        target_y = self.y + dy
+        
+        hit_boundary = (target_x < 0 or target_x >= max_width or 
+                        target_y < 0 or target_y >= max_height)
+            
+        self.x = int(np.clip(target_x, 0, max_width - 1))
+        self.y = int(np.clip(target_y, 0, max_height - 1))
         
         self.battery -= self.move_cost
         
         # Prevent battery from becoming negative
         if self.battery < 0:
             self.battery = 0
+            
+        return hit_boundary
             
     def drop(self):
         """Attempts to drop payload. Returns True if successful."""
