@@ -24,7 +24,7 @@ class TestPolicy(unittest.TestCase):
         batch_size = 4
         obs = {
             "spatial": torch.rand(batch_size, 5, 11, 11),
-            "drone": torch.rand(batch_size, 6),
+            "drone": torch.rand(batch_size, 9),
             "wind": torch.rand(batch_size, 3)
         }
         logits, value = self.policy(obs)

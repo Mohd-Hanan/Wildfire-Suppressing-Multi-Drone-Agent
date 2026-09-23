@@ -111,7 +111,7 @@ class TestObservation(unittest.TestCase):
         self.drone.y = 47
         obs = self.obs_builder.get_observation(self.drone, self.world)
         dist_normalized = obs['drone'][3]
-        self.assertEqual(dist_normalized, 1.0)
+        self.assertAlmostEqual(dist_normalized, 88/90, places=4)
         
         # Test drone somewhere in middle
         self.drone.x = 12
@@ -120,7 +120,7 @@ class TestObservation(unittest.TestCase):
         dist_normalized = obs['drone'][3]
         # Dist = |12-2| + |8-2| = 10 + 6 = 16.
         # 16 / 90 = 0.177777...
-        self.assertAlmostEqual(dist_normalized, 16.0 / 90.0)
+        self.assertAlmostEqual(dist_normalized, 14.0 / 90.0)
 
 if __name__ == '__main__':
     unittest.main()

@@ -22,7 +22,7 @@ class TestPPOTrainer(unittest.TestCase):
 
     def generate_dummy_data(self, N):
         spatial = torch.rand(N, 5, 11, 11)
-        drone = torch.rand(N, 6)
+        drone = torch.rand(N, 9)
         wind = torch.rand(N, 3)
         actions = torch.randint(0, 7, (N,))
         old_log_probs = torch.randn(N)

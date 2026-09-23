@@ -53,6 +53,7 @@ class RewardCalculator:
                 'containment_progress': 0.0, 'step_penalty': 0.0,
                 'crash_penalty': 0.0, 'extinction_reward': 0.0,
                 'boundary_penalty': -self.boundary_hit_penalty if hit_boundary else 0.0,
+                'battery_safety_penalty': 0.0,
                 'total_reward': 0.0
             }
 
@@ -70,13 +71,20 @@ class RewardCalculator:
         # 4b. Boundary penalty
         boundary_penalty = -self.boundary_hit_penalty if hit_boundary else 0.0
 
-        # 5. Crash penalty
+        # 5. Crash penalty & Battery Safety Penalty
         crash_penalty = 0.0
+        battery_safety_penalty = 0.0
         for d in drones:
             if self.prev_drone_active.get(d.id, True) and not d.active:
                 # Transitioned to inactive this step
                 crash_penalty -= self.drone_crash_penalty
             self.prev_drone_active[d.id] = d.active
+            
+            # Progressive battery safety penalty
+            if d.active:
+                margin = world.battery_margin(d)
+                if margin < 0:
+                    battery_safety_penalty -= 0.5 * abs(margin)
 
         # 6. Extinction
         extinction_reward = 0.0
@@ -91,6 +99,7 @@ class RewardCalculator:
                         step_penalty + 
                         boundary_penalty +
                         crash_penalty + 
+                        battery_safety_penalty +
                         extinction_reward)
 
         # Update tracking variables
@@ -106,6 +115,7 @@ class RewardCalculator:
             'step_penalty': step_penalty,
             'boundary_penalty': boundary_penalty,
             'crash_penalty': crash_penalty,
+            'battery_safety_penalty': battery_safety_penalty,
             'extinction_reward': extinction_reward,
             'total_reward': total_reward
         }

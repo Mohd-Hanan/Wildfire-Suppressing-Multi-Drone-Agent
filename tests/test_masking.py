@@ -10,7 +10,7 @@ class TestActionMasking(unittest.TestCase):
         # Create dummy observation
         self.obs = {
             "spatial": torch.zeros((1, 5, 11, 11), dtype=torch.float32, device=self.device),
-            "drone": torch.zeros((1, 6), dtype=torch.float32, device=self.device),
+            "drone": torch.zeros((1, 9), dtype=torch.float32, device=self.device),
             "wind": torch.zeros((1, 3), dtype=torch.float32, device=self.device),
         }
 

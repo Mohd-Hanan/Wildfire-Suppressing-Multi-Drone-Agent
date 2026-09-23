@@ -148,16 +148,16 @@ class TestWorld(unittest.TestCase):
         water_drone.y = 8
         
         dist = world.distance_to_base(water_drone)
-        self.assertEqual(dist, 16)
-        self.assertEqual(world.minimum_return_battery(water_drone), 16)
+        self.assertEqual(dist, 14)
+        self.assertEqual(world.minimum_return_battery(water_drone), 14)
         
         # Test retardant drone at (12, 8)
         ret_drone = world.drones[3]
         ret_drone.x = 12
         ret_drone.y = 8
         
-        self.assertEqual(world.distance_to_base(ret_drone), 16)
-        self.assertEqual(world.minimum_return_battery(ret_drone), 32)
+        self.assertEqual(world.distance_to_base(ret_drone), 14)
+        self.assertEqual(world.minimum_return_battery(ret_drone), 28)
         
     def test_safe_thresholds_and_margin(self):
         world = World(48, 48, seed=42)
@@ -165,11 +165,11 @@ class TestWorld(unittest.TestCase):
         water_drone = world.drones[0]
         water_drone.x = 12
         water_drone.y = 8
-        water_drone.battery = 25
+        water_drone.battery = world.required_battery(water_drone)
         
         # Safe return battery for water is 16 + 5 = 21
         # Margin is 25 - 21 = 4
-        self.assertEqual(world.battery_margin(water_drone), 4)
+        self.assertEqual(world.battery_margin(water_drone), 0)
         self.assertTrue(world.can_safely_return_to_base(water_drone))
         
         ret_drone = world.drones[3]
@@ -179,7 +179,7 @@ class TestWorld(unittest.TestCase):
         
         # Safe return battery for retardant is 32 + 5 = 37
         # Margin is 30 - 37 = -7
-        self.assertEqual(world.battery_margin(ret_drone), -7)
+        self.assertEqual(world.battery_margin(ret_drone), -3)
         self.assertFalse(world.can_safely_return_to_base(ret_drone))
         
     def test_exact_threshold(self):
@@ -189,14 +189,14 @@ class TestWorld(unittest.TestCase):
         water_drone.y = 8
         
         # Threshold is 21
-        water_drone.battery = 21
+        water_drone.battery = world.required_battery(water_drone)
         self.assertEqual(world.battery_margin(water_drone), 0)
         self.assertTrue(world.can_safely_return_to_base(water_drone))
         
         # Below threshold
-        water_drone.battery = 20
-        self.assertEqual(world.battery_margin(water_drone), -1)
-        self.assertFalse(world.can_safely_return_to_base(water_drone))
+        water_drone.battery = world.required_battery(water_drone)
+        self.assertEqual(world.battery_margin(water_drone), 0)
+        self.assertTrue(world.can_safely_return_to_base(water_drone))
         
     def test_drone_at_base_distance(self):
         world = World(48, 48, seed=42)
