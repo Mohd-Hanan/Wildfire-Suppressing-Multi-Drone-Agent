@@ -6,25 +6,48 @@ import os
 
 from wildfire.simulation.world import World
 from wildfire.simulation.drone import DroneType
-from wildfire.agents.testing_controller import MultiDroneTestingController
+from stage7_52_network import ActorCritic6Channels
+from stage7_52_obs_builder import GlobalFireObservationBuilder
+import torch
+from torch.distributions import Categorical
 from wildfire.environment.action import ActionExecutor
 
-def run_testing(headless=False, episodes=5):
+def run_testing(headless=False, episodes=5, seed=None):
     if not headless:
         pygame.init()
         from wildfire.rendering.renderer import Renderer
         renderer = Renderer(width=48, height=48, cell_size=16)
         
+    device = torch.device('cpu')
+    model_path = "stage7_52_global_fire_channel_200updates.pth"
+    model = ActorCritic6Channels(device=device)
+    model.load_state_dict(torch.load(model_path, map_location=device, weights_only=True))
+    model.eval()
+    obs_builder = GlobalFireObservationBuilder(window_size=11)
+    
+    if seed is not None:
+        np.random.seed(seed)
+        
     for ep in range(episodes):
         print(f"\n==========================================")
         print(f"EPISODE {ep+1}")
         
-        world = World(48, 48)
-        world.drones[0].x, world.drones[0].y = world.base_x, world.base_y
-        world.drones[1].x, world.drones[1].y = world.base_x + 1, world.base_y
-        world.drones[2].x, world.drones[2].y = world.base_x, world.base_y + 1
-        world.drones[3].x, world.drones[3].y = world.base_x + 1, world.base_y + 1
-        controller = MultiDroneTestingController(world)
+        ep_seed = seed + ep if seed is not None else None
+        world = World(48, 48, seed=ep_seed)
+        
+        # Randomize initial drone positions within a 5x5 region around base
+        rng = world.terrain.rng
+        for d in world.drones:
+            d.x = np.clip(world.base_x + rng.integers(-2, 3), 0, 47)
+            d.y = np.clip(world.base_y + rng.integers(-2, 3), 0, 47)
+            
+        # Ignite 1-3 fires to randomize fire size/intensity
+        num_fires = rng.integers(1, 4)
+        for _ in range(num_fires):
+            fx = rng.integers(5, 43)
+            fy = rng.integers(5, 43)
+            world.fire_manager.ignite(fx, fy)
+            
         executor = ActionExecutor()
         
         from wildfire.environment.reward import RewardCalculator
@@ -56,7 +79,21 @@ def run_testing(headless=False, episodes=5):
                         pygame.quit()
                         return
                         
-            actions = controller.get_actions()
+            actions = {}
+            for d in world.drones:
+                if not d.active:
+                    continue
+                obs = obs_builder.get_observation(d, world)
+                spatial = torch.tensor(obs["spatial"], dtype=torch.float32, device=device).unsqueeze(0)
+                drone_vec = torch.tensor(obs["drone"], dtype=torch.float32, device=device).unsqueeze(0)
+                wind_vec = torch.tensor(obs["wind"], dtype=torch.float32, device=device).unsqueeze(0)
+                
+                with torch.no_grad():
+                    logits, _ = model({"spatial": spatial, "drone": drone_vec, "wind": wind_vec})
+                    # Use stochastic policy
+                    dist = Categorical(logits=logits)
+                    act = dist.sample().item()
+                    actions[d.id] = act
             
             step_log = f"Step {step_count:4d} | "
             for d in world.drones:
@@ -138,6 +175,7 @@ def run_testing(headless=False, episodes=5):
         print(f"RETARDANT Deployments: {retardant_deps}")
         print(f"Drone Collisions: {collisions}")
         print(f"Drone Crashes: {crashes}")
+        print(f"Number of drones remaining: {4 - crashes}")
         print(f"Fire Extinction Status: {'SUCCESS' if extinguished else 'FAILED'}")
         print(f"Total Episode Reward: {episode_reward:.2f}")
         
@@ -156,7 +194,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--headless", action="store_true", help="Run without Pygame")
     parser.add_argument("--episodes", type=int, default=1)
+    parser.add_argument("--seed", type=int, default=None, help="Reproducible random seed")
     args = parser.parse_args()
     
-    os.environ['CONTROLLER_MODE'] = "DEMO"
-    run_testing(headless=args.headless, episodes=args.episodes)
+    os.environ['CONTROLLER_MODE'] = "RL_DEMO"
+    run_testing(headless=args.headless, episodes=args.episodes, seed=args.seed)
