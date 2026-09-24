@@ -1,9 +1,7 @@
 import numpy as np
 from typing import Dict
-from collections import deque
-from scipy.cluster.vq import kmeans2
-from scipy.optimize import linear_sum_assignment
 from wildfire.simulation.drone import DroneType
+import random
 
 class MultiDroneTestingController:
     def __init__(self, world):
@@ -15,7 +13,7 @@ class MultiDroneTestingController:
         active_fires = np.argwhere((fm == 1) | (fm == 2) | (fm == 3))
         
         planned_positions = {}
-        assigned_targets = {}
+        assigned_targets = []
         
         base_cells = [
             (self.world.base_x, self.world.base_y),
@@ -24,144 +22,108 @@ class MultiDroneTestingController:
             (self.world.base_x + 1, self.world.base_y + 1)
         ]
         
-        # 1. Cluster fires
-        clusters = []
-        if len(active_fires) > 0:
-            k = min(4, len(active_fires))
-            if k == 1:
-                clusters.append({'centroid': active_fires[0], 'size': len(active_fires), 'cells': active_fires})
-            else:
-                # Add noise to prevent kmeans warnings on identical points
-                data = active_fires.astype(float) + np.random.rand(*active_fires.shape) * 0.01
-                centroids, labels = kmeans2(data, k, minit='points')
-                for i in range(k):
-                    c_cells = active_fires[labels == i]
-                    if len(c_cells) > 0:
-                        clusters.append({'centroid': centroids[i], 'size': len(c_cells), 'cells': c_cells})
-        
-        # Select one representative cell per cluster
-        target_candidates = []
-        for c in clusters:
-            # Find the actual fire cell closest to centroid
-            dists = np.sum(np.abs(c['cells'] - c['centroid']), axis=1)
-            best_cell = tuple(c['cells'][np.argmin(dists)])
-            target_candidates.append({
-                'pos': best_cell,
-                'size': c['size']
-            })
-            
-        # 2. Score and Assign Targets Globally
         active_drones = [d for d in self.world.drones if d.active]
-        n_drones = len(active_drones)
         
-        # We need enough candidates so every drone gets an assignment
-        # If there are fewer candidates than drones, duplicate them or use base
-        while len(target_candidates) < n_drones and len(target_candidates) > 0:
-            # Duplicate the largest cluster
-            largest = max(target_candidates, key=lambda x: x['size'])
-            target_candidates.append(largest)
-            
-        if len(target_candidates) == 0:
-            # No fires, all candidates are just bases
-            for i in range(n_drones):
-                target_candidates.append({'pos': base_cells[i % 4], 'size': 0})
+        wind_rad = np.radians(self.world.wind.direction)
+        wx = np.cos(wind_rad) * self.world.wind.speed
+        wy = np.sin(wind_rad) * self.world.wind.speed
         
-        cost_matrix = np.zeros((n_drones, len(target_candidates)))
+        drone_targets = {}
         
-        # Evaluate must_return status
-        must_return_status = {}
-        for d_idx, drone in enumerate(active_drones):
+        # To make target assignment independent of drone ID processing order,
+        # we can shuffle the drones or process them dynamically.
+        # But for deterministic testing, we just process them in order.
+        
+        for drone in active_drones:
             my_base = base_cells[drone.id % 4]
             dist_to_my_base = abs(drone.x - my_base[0]) + abs(drone.y - my_base[1])
-            reserve = 30 if drone.type == DroneType.WATER else 10
-            battery_needed_to_return = dist_to_my_base * drone.move_cost + reserve
+            reserve = 20 if drone.type == DroneType.WATER else 10
+            battery_needed = dist_to_my_base * drone.move_cost + reserve
             
             must_return = False
             if drone.payload < drone.drop_payload_cost:
                 must_return = True
-            elif drone.battery <= battery_needed_to_return:
+            elif drone.battery <= battery_needed:
                 must_return = True
             elif len(active_fires) == 0:
                 must_return = True
                 
-            # Check if at base and needing refill
             if self.world.is_at_base(drone) and (drone.payload < drone.drop_payload_cost or drone.battery < drone.max_battery * 0.9):
-                must_return = True # Force it to stay/target base
+                must_return = True
                 
-            must_return_status[drone.id] = must_return
+            if must_return:
+                target = my_base
+                # simple base block check
+                for other in active_drones:
+                    if other.id != drone.id and self.world.is_at_base(other):
+                        if (other.x, other.y) == target:
+                            for bc in base_cells:
+                                if bc != (other.x, other.y):
+                                    target = bc
+                                    break
+                drone_targets[drone.id] = target
+                assigned_targets.append(target)
+                continue
+                
+            best_score = -float('inf')
+            best_target = my_base
             
-            for c_idx, cand in enumerate(target_candidates):
-                target_pos = cand['pos']
+            fires_to_check = active_fires
+            if len(active_fires) > 50:
+                indices = np.random.choice(len(active_fires), 50, replace=False)
+                fires_to_check = active_fires[indices]
                 
-                if must_return:
-                    # Score base heavily, penalize everything else
-                    if target_pos in base_cells:
-                        cost_matrix[d_idx, c_idx] = 0
-                    else:
-                        cost_matrix[d_idx, c_idx] = 1000000
+            for fx, fy in fires_to_check:
+                dist = abs(drone.x - fx) + abs(drone.y - fy)
+                score = -dist * 2.0
+                
+                min_x, max_x = max(0, fx-2), min(self.world.width, fx+3)
+                min_y, max_y = max(0, fy-2), min(self.world.height, fy+3)
+                intensity = np.sum(fm[min_x:max_x, min_y:max_y] > 0)
+                score += intensity * 0.5
+                
+                dx_wind = fx - drone.x
+                dy_wind = fy - drone.y
+                wind_alignment = (dx_wind * wx + dy_wind * wy)
+                
+                if drone.type == DroneType.RETARDANT:
+                    score += wind_alignment * 3.0
+                    score -= intensity * 0.2
                 else:
-                    dist_to_target = abs(drone.x - target_pos[0]) + abs(drone.y - target_pos[1])
-                    dist_target_to_base = abs(target_pos[0] - my_base[0]) + abs(target_pos[1] - my_base[1])
-                    total_cost = (dist_to_target + dist_target_to_base) * drone.move_cost + drone.drop_cost + reserve
+                    score += wind_alignment * 1.0
                     
-                    if total_cost > drone.battery:
-                        # Cannot safely reach it
-                        cost_matrix[d_idx, c_idx] = 1000000
-                    else:
-                        # Base cost is distance
-                        score = dist_to_target * 10
+                for (tx, ty) in assigned_targets:
+                    dist_to_other = abs(tx - fx) + abs(ty - fy)
+                    if dist_to_other < 5:
+                        score -= (5 - dist_to_other) * 8.0
                         
-                        # Retardant prefers larger clusters
-                        if drone.type == DroneType.RETARDANT:
-                            score -= cand['size'] * 5
+                if score > best_score:
+                    dist_base = abs(fx - my_base[0]) + abs(fy - my_base[1])
+                    total_trip_cost = (dist + dist_base) * drone.move_cost + drone.drop_cost + reserve
+                    if drone.battery >= total_trip_cost:
+                        best_score = score
+                        best_target = (fx, fy)
                         
-                        cost_matrix[d_idx, c_idx] = score
-
-        # Global assignment
-        row_ind, col_ind = linear_sum_assignment(cost_matrix)
-        
-        # Ensure we have valid base fallbacks if they got blocked by 1000000
-        drone_targets = {}
-        for idx in range(n_drones):
-            d_idx = row_ind[idx]
-            c_idx = col_ind[idx]
-            drone = active_drones[d_idx]
+            drone_targets[drone.id] = best_target
+            assigned_targets.append(best_target)
             
-            if cost_matrix[d_idx, c_idx] >= 1000000:
-                # Fallback to a base cell
-                drone_targets[drone.id] = base_cells[drone.id % 4]
-            else:
-                drone_targets[drone.id] = target_candidates[c_idx]['pos']
-                
-        # Handle "blocked base" logic dynamically
-        # If multiple drones want a base cell, or it's blocked by a sitting drone
-        sitting_drones = [d for d in active_drones if self.world.is_at_base(d) and (d.payload < d.drop_payload_cost or d.battery < d.max_battery * 0.9)]
-        blocked_bases = set([(d.x, d.y) for d in sitting_drones])
+        def get_dist(d):
+            tx, ty = drone_targets[d.id]
+            return abs(d.x - tx) + abs(d.y - ty)
+            
+        active_drones.sort(key=get_dist)
         
-        for drone in active_drones:
-            if drone_targets[drone.id] in base_cells:
-                # If my assigned base is blocked by a sitter (who is not me), pick another
-                if drone_targets[drone.id] in blocked_bases and not ((drone.x, drone.y) == drone_targets[drone.id]):
-                    for bc in base_cells:
-                        if bc not in blocked_bases:
-                            drone_targets[drone.id] = bc
-                            break
-                            
-        # 3. Pathfinding & Movement (resolve concurrently/sequentially with separation)
         for drone in active_drones:
             target_x, target_y = drone_targets[drone.id]
             drone.current_target = (target_x, target_y)
             
-            # Refill logic
             if self.world.is_at_base(drone) and (drone.payload < drone.drop_payload_cost or drone.battery < drone.max_battery * 0.9):
                 actions[drone.id] = 0
                 planned_positions[drone.id] = (drone.x, drone.y)
                 drone.current_action = 0
                 continue
                 
-            dx, dy = target_x - drone.x, target_y - drone.y
-            dist = abs(dx) + abs(dy)
-            
+            dist = abs(target_x - drone.x) + abs(target_y - drone.y)
             base_target = (target_x, target_y) in base_cells
             
             if dist <= 1 and not base_target:
@@ -173,44 +135,28 @@ class MultiDroneTestingController:
                 planned_positions[drone.id] = (drone.x, drone.y)
                 drone.current_action = 0
             else:
-                # BFS with soft separation
                 obstacles = set(planned_positions.values())
                 for other in active_drones:
                     if other.id != drone.id and other.id not in planned_positions:
                         obstacles.add((other.x, other.y))
                         
-                queue = deque([(drone.x, drone.y, [])])
-                visited = set([(drone.x, drone.y)])
-                path = []
+                valid_moves = []
+                valid_moves.append((dist * 10 + 10.0, 0, drone.x, drone.y)) 
                 
-                # Shuffle the moves to avoid always preferring North/East (adds organic variety)
-                import random
-                moves = [(1, 0, -1), (2, 0, 1), (3, 1, 0), (4, -1, 0)]
-                random.shuffle(moves)
+                for act, mx, my in [(1, 0, -1), (2, 0, 1), (3, 1, 0), (4, -1, 0)]:
+                    nx, ny = drone.x + mx, drone.y + my
+                    if 0 <= nx < self.world.width and 0 <= ny < self.world.height:
+                        if (nx, ny) not in obstacles:
+                            euclid = np.sqrt((target_x - nx)**2 + (target_y - ny)**2)
+                            noise = random.uniform(0.0, 0.4)
+                            score = euclid * 10 + noise
+                            valid_moves.append((score, act, nx, ny))
+                            
+                valid_moves.sort(key=lambda x: x[0])
+                best_score, selected_action, nx, ny = valid_moves[0]
                 
-                while queue:
-                    cx, cy, current_path = queue.popleft()
-                    
-                    if (cx, cy) == (target_x, target_y):
-                        path = current_path
-                        break
-                        
-                    for act, mx, my in moves:
-                        nx, ny = cx + mx, cy + my
-                        if 0 <= nx < self.world.width and 0 <= ny < self.world.height:
-                            if (nx, ny) not in obstacles and (nx, ny) not in visited:
-                                visited.add((nx, ny))
-                                queue.append((nx, ny, current_path + [(act, nx, ny)]))
-                                
-                if path:
-                    selected_action = path[0][0]
-                    selected_pos = (path[0][1], path[0][2])
-                else:
-                    selected_action = 0
-                    selected_pos = (drone.x, drone.y)
-                    
                 actions[drone.id] = selected_action
-                planned_positions[drone.id] = selected_pos
+                planned_positions[drone.id] = (nx, ny)
                 drone.current_action = selected_action
                 
         return actions
