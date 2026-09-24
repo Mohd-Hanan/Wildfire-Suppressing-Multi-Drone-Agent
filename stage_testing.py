@@ -17,7 +17,7 @@ def run_testing(headless=False, episodes=5):
         
     for ep in range(episodes):
         print(f"\n==========================================")
-        print(f"TESTING EPISODE {ep+1}/{episodes}")
+        print(f"EPISODE {ep+1}")
         
         world = World(48, 48)
         world.drones[0].x, world.drones[0].y = world.base_x, world.base_y
@@ -27,7 +27,13 @@ def run_testing(headless=False, episodes=5):
         controller = MultiDroneTestingController(world)
         executor = ActionExecutor()
         
+        from wildfire.environment.reward import RewardCalculator
+        reward_calculator = RewardCalculator({})
+        reward_calculator.reset()
+        episode_reward = 0.0
+        
         initial_fire_cells = np.sum(world.fire_manager.fire_map > 0)
+
         print(f"Initial Fire Cells: {initial_fire_cells}")
         
         step_count = 0
@@ -52,6 +58,14 @@ def run_testing(headless=False, episodes=5):
                         
             actions = controller.get_actions()
             
+            step_log = f"Step {step_count:4d} | "
+            for d in world.drones:
+                act = actions.get(d.id, 0)
+                act_name = ['STAY', 'N', 'S', 'E', 'W', 'WATER', 'RETARD'][act]
+                step_log += f"D{d.id} ({d.x:2d},{d.y:2d}) Bat:{int(d.battery):3d} {act_name:6s} | "
+            print(step_log)
+
+            
             for drone in world.drones:
                 if not drone.active:
                     continue
@@ -68,8 +82,19 @@ def run_testing(headless=False, episodes=5):
 
                 
                 # Use ActionExecutor directly
+                pre_active = np.sum((world.fire_manager.fire_map == 1) | (world.fire_manager.fire_map == 2) | (world.fire_manager.fire_map == 3))
+                pre_pos = (drone.x, drone.y)
+                pre_targ = drone.current_target if hasattr(drone, 'current_target') else (0,0)
+                
                 hit_boundary, suppressed = executor.execute(drone, world, act)
                 total_suppressed += suppressed
+                
+                rew, _ = reward_calculator.calculate(
+                    world, world.drones, hit_boundary, suppressed, act, 
+                    pre_pos, pre_targ, pre_active
+                )
+                episode_reward += rew
+
                 
                 if act == 5: water_deps += 1
                 if act == 6: retardant_deps += 1
@@ -114,13 +139,13 @@ def run_testing(headless=False, episodes=5):
         print(f"Drone Collisions: {collisions}")
         print(f"Drone Crashes: {crashes}")
         print(f"Fire Extinction Status: {'SUCCESS' if extinguished else 'FAILED'}")
+        print(f"Total Episode Reward: {episode_reward:.2f}")
         
         for drone_id in range(4):
             print(f"Drone {drone_id} Actions: {action_counts[drone_id]}")
             print(f"Drone {drone_id} Unique Targets: {len(unique_targets[drone_id])}")
             print(f"Drone {drone_id} Target Changes: {target_changes[drone_id]}")
-            if (ep + 1) <= 3:
-                print(f"Drone {drone_id} First 20 steps (x, y, act): {history[drone_id]}")
+
 
 
 
