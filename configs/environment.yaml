@@ -6,7 +6,7 @@ drone:
     drop_cost: 2
     drop_payload_cost: 1
   retardant:
-    max_battery: 200
+    max_battery: 250
     max_payload: 5
     move_cost: 2
     drop_cost: 2

@@ -1,3 +1,4 @@
+import time
 import pygame
 import numpy as np
 import math
@@ -20,6 +21,7 @@ class Renderer:
         self.font_sub = pygame.font.SysFont("Trebuchet MS", 18, bold=True)
         self.font_body = pygame.font.SysFont("Trebuchet MS", 14)
         self.font_mono = pygame.font.SysFont("Courier New", 14, bold=True)
+        self.deployment_effects = []
         
         self.cached_terrain_surface = None
         
@@ -142,6 +144,46 @@ class Renderer:
                 line_surf = pygame.Surface((self.screen_width, self.screen_height), pygame.SRCALPHA)
                 pygame.draw.line(line_surf, (*color, 60), (cx, cy), (tx, ty), 1)
                 self.screen.blit(line_surf, (0, 0))
+
+
+        # Draw Deployment Effects (Water / Retardant Splashes)
+        current_time = time.time()
+        active_effects = []
+        for effect in self.deployment_effects:
+            age = current_time - effect['time']
+            if age < effect['duration']:
+                cx = int((effect['x'] + 0.5) * self.cell_size)
+                cy = int((effect['y'] + 0.5) * self.cell_size)
+                
+                # Expand radius based on age
+                progress = age / effect['duration']
+                radius = int(4 + progress * 8)
+                alpha = int(255 * (1.0 - progress))
+                
+                effect_surf = pygame.Surface((self.cell_size * 4, self.cell_size * 4), pygame.SRCALPHA)
+                center = (self.cell_size * 2, self.cell_size * 2)
+                
+                if effect['type'] == 'WATER':
+                    # Cyan Splash
+                    pygame.draw.circle(effect_surf, (0, 255, 255, alpha), center, radius)
+                    pygame.draw.circle(effect_surf, (200, 255, 255, alpha), center, max(1, radius-3))
+                    
+                    # Optional text label above
+                    if progress < 0.5:
+                        lbl_surf = self.font_body.render("💧 DROP", True, (0, 255, 255))
+                        self.screen.blit(lbl_surf, (cx - 20, cy - 25 - int(progress * 10)))
+                else:
+                    # Retardant Red/Orange Zone
+                    pygame.draw.circle(effect_surf, (255, 100, 50, alpha), center, radius)
+                    
+                    if progress < 0.5:
+                        lbl_surf = self.font_body.render("🟥 RETARDANT", True, (255, 100, 50))
+                        self.screen.blit(lbl_surf, (cx - 30, cy - 25 - int(progress * 10)))
+                        
+                self.screen.blit(effect_surf, (cx - self.cell_size*2, cy - self.cell_size*2))
+                active_effects.append(effect)
+                
+        self.deployment_effects = active_effects
 
         for drone in world.drones:
             if not drone.active: 

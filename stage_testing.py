@@ -86,7 +86,24 @@ def run_testing(headless=False, episodes=5):
                 pre_pos = (drone.x, drone.y)
                 pre_targ = drone.current_target if hasattr(drone, 'current_target') else (0,0)
                 
+
+                pre_payload = drone.payload
                 hit_boundary, suppressed = executor.execute(drone, world, act)
+                post_payload = drone.payload
+                
+                # If payload decreased, a successful drop occurred
+                if post_payload < pre_payload and not headless and hasattr(renderer, 'deployment_effects'):
+                    import time
+                    dtype = "WATER" if drone.type == DroneType.WATER else "RETARDANT"
+                    duration = 0.8 if dtype == "WATER" else 1.0
+                    renderer.deployment_effects.append({
+                        "x": drone.x,
+                        "y": drone.y,
+                        "type": dtype,
+                        "time": time.time(),
+                        "duration": duration
+                    })
+
                 total_suppressed += suppressed
                 
                 rew, _ = reward_calculator.calculate(
