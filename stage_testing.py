@@ -1,5 +1,5 @@
-import argparse
 import time
+import argparse
 import numpy as np
 import pygame
 import os
@@ -93,7 +93,6 @@ def run_testing(headless=False, episodes=5):
                 
                 # If payload decreased, a successful drop occurred
                 if post_payload < pre_payload and not headless and hasattr(renderer, 'deployment_effects'):
-                    import time
                     dtype = "WATER" if drone.type == DroneType.WATER else "RETARDANT"
                     duration = 0.8 if dtype == "WATER" else 1.0
                     renderer.deployment_effects.append({
