@@ -1,0 +1,1969 @@
+{
+    "experiment": "Controlled Suppression Effect",
+    "seeds": [
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109
+    ],
+    "agents": [
+        "no_suppression",
+        "random",
+        "heuristic",
+        "controlled_suppression"
+    ],
+    "per_seed": [
+        {
+            "seed": 100,
+            "no_suppression": {
+                "seed": 100,
+                "reward": -1352.6499999999978,
+                "length": 266,
+                "burned_cells": 290,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 266,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 266,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 100,
+                "reward": -1352.6499999999978,
+                "length": 266,
+                "burned_cells": 290,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 31,
+                    "1": 28,
+                    "2": 39,
+                    "3": 35,
+                    "4": 54,
+                    "5": 37,
+                    "6": 42
+                },
+                "action_changes": 224,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 102,
+                "final_payload": 0,
+                "final_pos": [
+                    1,
+                    13
+                ],
+                "min_battery": 102,
+                "deploy_attempts": 79,
+                "successful_water": 28,
+                "successful_retardant": 0,
+                "failed_deployments": 51,
+                "base_visits": 34,
+                "boundary_pushes": 18,
+                "final_active": true
+            },
+            "heuristic": {
+                "seed": 100,
+                "reward": -1352.6499999999978,
+                "length": 266,
+                "burned_cells": 290,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 58,
+                    "2": 60,
+                    "3": 77,
+                    "4": 71,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 131,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 144,
+                "final_payload": 5,
+                "final_pos": [
+                    8,
+                    4
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 4,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 100,
+                "reward": -1352.6499999999978,
+                "length": 266,
+                "burned_cells": 290,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 58,
+                    "2": 60,
+                    "3": 77,
+                    "4": 71,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 131,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 144,
+                "final_payload": 5,
+                "final_pos": [
+                    8,
+                    4
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 4,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 101,
+            "no_suppression": {
+                "seed": 101,
+                "reward": 84.27000000000001,
+                "length": 74,
+                "burned_cells": 3,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 74,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 74,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 101,
+                "reward": 84.27000000000001,
+                "length": 74,
+                "burned_cells": 3,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 9,
+                    "1": 6,
+                    "2": 16,
+                    "3": 11,
+                    "4": 12,
+                    "5": 10,
+                    "6": 10
+                },
+                "action_changes": 62,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 96,
+                "final_payload": 0,
+                "final_pos": [
+                    4,
+                    12
+                ],
+                "min_battery": 96,
+                "deploy_attempts": 20,
+                "successful_water": 5,
+                "successful_retardant": 0,
+                "failed_deployments": 15,
+                "base_visits": 3,
+                "boundary_pushes": 3,
+                "final_active": true
+            },
+            "heuristic": {
+                "seed": 101,
+                "reward": 84.27000000000001,
+                "length": 74,
+                "burned_cells": 3,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 1,
+                    "2": 30,
+                    "3": 36,
+                    "4": 7,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 11,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 77,
+                "final_payload": 5,
+                "final_pos": [
+                    31,
+                    31
+                ],
+                "min_battery": 77,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 2,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 101,
+                "reward": 84.27000000000001,
+                "length": 74,
+                "burned_cells": 3,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 1,
+                    "2": 30,
+                    "3": 36,
+                    "4": 7,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 11,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 77,
+                "final_payload": 5,
+                "final_pos": [
+                    31,
+                    31
+                ],
+                "min_battery": 77,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 2,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 102,
+            "no_suppression": {
+                "seed": 102,
+                "reward": -9544.740000000074,
+                "length": 475,
+                "burned_cells": 1928,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 475,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 475,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 102,
+                "reward": -9544.740000000074,
+                "length": 475,
+                "burned_cells": 1926,
+                "extinguished": true,
+                "crashes": 1,
+                "crash_cause": "Battery depleted",
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 64,
+                    "1": 66,
+                    "2": 77,
+                    "3": 71,
+                    "4": 66,
+                    "5": 67,
+                    "6": 64
+                },
+                "action_changes": 404,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 0,
+                "final_payload": 0,
+                "final_pos": [
+                    9,
+                    12
+                ],
+                "min_battery": 0,
+                "deploy_attempts": 131,
+                "successful_water": 14,
+                "successful_retardant": 0,
+                "failed_deployments": 117,
+                "base_visits": 31,
+                "boundary_pushes": 6,
+                "final_active": false
+            },
+            "heuristic": {
+                "seed": 102,
+                "reward": -9544.740000000074,
+                "length": 475,
+                "burned_cells": 1928,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 61,
+                    "2": 75,
+                    "3": 90,
+                    "4": 69,
+                    "5": 13,
+                    "6": 167
+                },
+                "action_changes": 126,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 116,
+                "final_payload": 5,
+                "final_pos": [
+                    23,
+                    16
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 180,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 170,
+                "base_visits": 11,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 102,
+                "reward": -9534.740000000074,
+                "length": 475,
+                "burned_cells": 1926,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 51,
+                    "2": 67,
+                    "3": 85,
+                    "4": 63,
+                    "5": 83,
+                    "6": 126
+                },
+                "action_changes": 112,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 113,
+                "final_payload": 5,
+                "final_pos": [
+                    24,
+                    18
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 209,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 199,
+                "base_visits": 79,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 103,
+            "no_suppression": {
+                "seed": 103,
+                "reward": -881.7999999999987,
+                "length": 181,
+                "burned_cells": 196,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 181,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 181,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 103,
+                "reward": -881.7999999999987,
+                "length": 181,
+                "burned_cells": 196,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 26,
+                    "1": 32,
+                    "2": 23,
+                    "3": 24,
+                    "4": 27,
+                    "5": 21,
+                    "6": 28
+                },
+                "action_changes": 159,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 124,
+                "final_payload": 1,
+                "final_pos": [
+                    0,
+                    0
+                ],
+                "min_battery": 93,
+                "deploy_attempts": 49,
+                "successful_water": 15,
+                "successful_retardant": 0,
+                "failed_deployments": 34,
+                "base_visits": 19,
+                "boundary_pushes": 8,
+                "final_active": true
+            },
+            "heuristic": {
+                "seed": 103,
+                "reward": -881.7999999999987,
+                "length": 181,
+                "burned_cells": 196,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 29,
+                    "2": 52,
+                    "3": 65,
+                    "4": 35,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 72,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 99,
+                "final_payload": 5,
+                "final_pos": [
+                    32,
+                    25
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 3,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 103,
+                "reward": -881.7999999999987,
+                "length": 181,
+                "burned_cells": 196,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 29,
+                    "2": 52,
+                    "3": 65,
+                    "4": 35,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 72,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 99,
+                "final_payload": 5,
+                "final_pos": [
+                    32,
+                    25
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 3,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 104,
+            "no_suppression": {
+                "seed": 104,
+                "reward": -2422.82000000004,
+                "length": 283,
+                "burned_cells": 504,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 283,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 283,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 104,
+                "reward": -2422.82000000004,
+                "length": 283,
+                "burned_cells": 504,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 29,
+                    "1": 36,
+                    "2": 52,
+                    "3": 46,
+                    "4": 44,
+                    "5": 41,
+                    "6": 35
+                },
+                "action_changes": 241,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 2,
+                "final_payload": 0,
+                "final_pos": [
+                    6,
+                    18
+                ],
+                "min_battery": 2,
+                "deploy_attempts": 76,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 66,
+                "base_visits": 32,
+                "boundary_pushes": 2,
+                "final_active": true
+            },
+            "heuristic": {
+                "seed": 104,
+                "reward": -2422.82000000004,
+                "length": 283,
+                "burned_cells": 504,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 50,
+                    "2": 72,
+                    "3": 90,
+                    "4": 66,
+                    "5": 5,
+                    "6": 0
+                },
+                "action_changes": 119,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 106,
+                "final_payload": 5,
+                "final_pos": [
+                    26,
+                    24
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 5,
+                "successful_water": 5,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 4,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 104,
+                "reward": -2422.82000000004,
+                "length": 283,
+                "burned_cells": 504,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 50,
+                    "2": 57,
+                    "3": 80,
+                    "4": 66,
+                    "5": 5,
+                    "6": 25
+                },
+                "action_changes": 118,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 131,
+                "final_payload": 5,
+                "final_pos": [
+                    16,
+                    9
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 30,
+                "successful_water": 5,
+                "successful_retardant": 0,
+                "failed_deployments": 25,
+                "base_visits": 4,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 105,
+            "no_suppression": {
+                "seed": 105,
+                "reward": -4089.9900000000466,
+                "length": 500,
+                "burned_cells": 817,
+                "extinguished": false,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "max_steps",
+                "action_counts": {
+                    "0": 500,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 500,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 105,
+                "reward": -4099.990000000046,
+                "length": 500,
+                "burned_cells": 817,
+                "extinguished": false,
+                "crashes": 1,
+                "crash_cause": "Battery depleted",
+                "termination_reason": "max_steps",
+                "action_counts": {
+                    "0": 66,
+                    "1": 71,
+                    "2": 73,
+                    "3": 70,
+                    "4": 75,
+                    "5": 72,
+                    "6": 73
+                },
+                "action_changes": 423,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 0,
+                "final_payload": 0,
+                "final_pos": [
+                    4,
+                    14
+                ],
+                "min_battery": 0,
+                "deploy_attempts": 145,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 135,
+                "base_visits": 7,
+                "boundary_pushes": 11,
+                "final_active": false
+            },
+            "heuristic": {
+                "seed": 105,
+                "reward": -4089.9900000000466,
+                "length": 500,
+                "burned_cells": 817,
+                "extinguished": false,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "max_steps",
+                "action_counts": {
+                    "0": 0,
+                    "1": 92,
+                    "2": 122,
+                    "3": 154,
+                    "4": 122,
+                    "5": 10,
+                    "6": 0
+                },
+                "action_changes": 224,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 90,
+                "final_payload": 5,
+                "final_pos": [
+                    34,
+                    32
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 10,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 6,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 105,
+                "reward": -4089.9900000000466,
+                "length": 500,
+                "burned_cells": 817,
+                "extinguished": false,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "max_steps",
+                "action_counts": {
+                    "0": 0,
+                    "1": 97,
+                    "2": 104,
+                    "3": 121,
+                    "4": 114,
+                    "5": 10,
+                    "6": 54
+                },
+                "action_changes": 214,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 40,
+                "final_payload": 0,
+                "final_pos": [
+                    9,
+                    9
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 64,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 54,
+                "base_visits": 5,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 106,
+            "no_suppression": {
+                "seed": 106,
+                "reward": -2942.4600000000405,
+                "length": 247,
+                "burned_cells": 608,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 247,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 247,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 106,
+                "reward": -2927.200000000035,
+                "length": 221,
+                "burned_cells": 605,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 38,
+                    "1": 35,
+                    "2": 36,
+                    "3": 27,
+                    "4": 24,
+                    "5": 26,
+                    "6": 35
+                },
+                "action_changes": 193,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 49,
+                "final_payload": 0,
+                "final_pos": [
+                    9,
+                    9
+                ],
+                "min_battery": 49,
+                "deploy_attempts": 61,
+                "successful_water": 8,
+                "successful_retardant": 0,
+                "failed_deployments": 53,
+                "base_visits": 11,
+                "boundary_pushes": 10,
+                "final_active": true
+            },
+            "heuristic": {
+                "seed": 106,
+                "reward": -2942.4600000000405,
+                "length": 247,
+                "burned_cells": 608,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 45,
+                    "2": 48,
+                    "3": 47,
+                    "4": 49,
+                    "5": 23,
+                    "6": 35
+                },
+                "action_changes": 115,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 140,
+                "final_payload": 2,
+                "final_pos": [
+                    0,
+                    5
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 58,
+                "successful_water": 23,
+                "successful_retardant": 0,
+                "failed_deployments": 35,
+                "base_visits": 7,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 106,
+                "reward": -2942.4600000000405,
+                "length": 247,
+                "burned_cells": 608,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 46,
+                    "2": 48,
+                    "3": 44,
+                    "4": 45,
+                    "5": 25,
+                    "6": 39
+                },
+                "action_changes": 104,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 148,
+                "final_payload": 5,
+                "final_pos": [
+                    1,
+                    4
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 64,
+                "successful_water": 25,
+                "successful_retardant": 0,
+                "failed_deployments": 39,
+                "base_visits": 8,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 107,
+            "no_suppression": {
+                "seed": 107,
+                "reward": -8829.310000000067,
+                "length": 432,
+                "burned_cells": 1785,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 432,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 432,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 107,
+                "reward": -8809.310000000067,
+                "length": 432,
+                "burned_cells": 1779,
+                "extinguished": true,
+                "crashes": 1,
+                "crash_cause": "Battery depleted",
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 59,
+                    "1": 61,
+                    "2": 51,
+                    "3": 70,
+                    "4": 57,
+                    "5": 55,
+                    "6": 79
+                },
+                "action_changes": 367,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 0,
+                "final_payload": 0,
+                "final_pos": [
+                    12,
+                    3
+                ],
+                "min_battery": 0,
+                "deploy_attempts": 134,
+                "successful_water": 9,
+                "successful_retardant": 0,
+                "failed_deployments": 125,
+                "base_visits": 9,
+                "boundary_pushes": 17,
+                "final_active": false
+            },
+            "heuristic": {
+                "seed": 107,
+                "reward": -8829.310000000067,
+                "length": 432,
+                "burned_cells": 1785,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 73,
+                    "2": 81,
+                    "3": 91,
+                    "4": 83,
+                    "5": 19,
+                    "6": 85
+                },
+                "action_changes": 175,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 34,
+                "final_payload": 1,
+                "final_pos": [
+                    10,
+                    10
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 104,
+                "successful_water": 19,
+                "successful_retardant": 0,
+                "failed_deployments": 85,
+                "base_visits": 6,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 107,
+                "reward": -8829.310000000067,
+                "length": 432,
+                "burned_cells": 1785,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 60,
+                    "2": 71,
+                    "3": 83,
+                    "4": 72,
+                    "5": 6,
+                    "6": 140
+                },
+                "action_changes": 140,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 41,
+                "final_payload": 4,
+                "final_pos": [
+                    13,
+                    13
+                ],
+                "min_battery": 22,
+                "deploy_attempts": 146,
+                "successful_water": 6,
+                "successful_retardant": 0,
+                "failed_deployments": 140,
+                "base_visits": 57,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 108,
+            "no_suppression": {
+                "seed": 108,
+                "reward": -5588.390000000057,
+                "length": 340,
+                "burned_cells": 1137,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 340,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 340,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 108,
+                "reward": -5598.390000000057,
+                "length": 340,
+                "burned_cells": 1137,
+                "extinguished": true,
+                "crashes": 1,
+                "crash_cause": "Battery depleted",
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 49,
+                    "1": 50,
+                    "2": 53,
+                    "3": 55,
+                    "4": 45,
+                    "5": 40,
+                    "6": 48
+                },
+                "action_changes": 303,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 0,
+                "final_payload": 0,
+                "final_pos": [
+                    11,
+                    13
+                ],
+                "min_battery": 0,
+                "deploy_attempts": 88,
+                "successful_water": 6,
+                "successful_retardant": 0,
+                "failed_deployments": 82,
+                "base_visits": 7,
+                "boundary_pushes": 2,
+                "final_active": false
+            },
+            "heuristic": {
+                "seed": 108,
+                "reward": -5588.390000000057,
+                "length": 340,
+                "burned_cells": 1137,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 64,
+                    "2": 66,
+                    "3": 85,
+                    "4": 79,
+                    "5": 15,
+                    "6": 31
+                },
+                "action_changes": 148,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 144,
+                "final_payload": 5,
+                "final_pos": [
+                    8,
+                    4
+                ],
+                "min_battery": 33,
+                "deploy_attempts": 46,
+                "successful_water": 15,
+                "successful_retardant": 0,
+                "failed_deployments": 31,
+                "base_visits": 5,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 108,
+                "reward": -5588.390000000057,
+                "length": 340,
+                "burned_cells": 1137,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 61,
+                    "2": 64,
+                    "3": 79,
+                    "4": 76,
+                    "5": 15,
+                    "6": 45
+                },
+                "action_changes": 144,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 38,
+                "final_payload": 0,
+                "final_pos": [
+                    5,
+                    5
+                ],
+                "min_battery": 38,
+                "deploy_attempts": 60,
+                "successful_water": 15,
+                "successful_retardant": 0,
+                "failed_deployments": 45,
+                "base_visits": 4,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        },
+        {
+            "seed": 109,
+            "no_suppression": {
+                "seed": 109,
+                "reward": -2568.0800000000386,
+                "length": 309,
+                "burned_cells": 533,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 309,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_changes": 0,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 150,
+                "final_payload": 5,
+                "final_pos": [
+                    2,
+                    2
+                ],
+                "min_battery": 150,
+                "deploy_attempts": 0,
+                "successful_water": 0,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 309,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "random": {
+                "seed": 109,
+                "reward": -2578.0800000000386,
+                "length": 309,
+                "burned_cells": 533,
+                "extinguished": true,
+                "crashes": 1,
+                "crash_cause": "Battery depleted",
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 43,
+                    "1": 42,
+                    "2": 47,
+                    "3": 39,
+                    "4": 39,
+                    "5": 53,
+                    "6": 46
+                },
+                "action_changes": 260,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 0,
+                "final_payload": 0,
+                "final_pos": [
+                    3,
+                    7
+                ],
+                "min_battery": 0,
+                "deploy_attempts": 99,
+                "successful_water": 7,
+                "successful_retardant": 0,
+                "failed_deployments": 92,
+                "base_visits": 6,
+                "boundary_pushes": 0,
+                "final_active": false
+            },
+            "heuristic": {
+                "seed": 109,
+                "reward": -2568.0800000000386,
+                "length": 309,
+                "burned_cells": 533,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 64,
+                    "2": 86,
+                    "3": 86,
+                    "4": 63,
+                    "5": 10,
+                    "6": 0
+                },
+                "action_changes": 131,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 107,
+                "final_payload": 5,
+                "final_pos": [
+                    25,
+                    24
+                ],
+                "min_battery": 21,
+                "deploy_attempts": 10,
+                "successful_water": 10,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 5,
+                "boundary_pushes": 0,
+                "final_active": true
+            },
+            "controlled_suppression": {
+                "seed": 109,
+                "reward": -2568.0800000000386,
+                "length": 309,
+                "burned_cells": 533,
+                "extinguished": true,
+                "crashes": 0,
+                "crash_cause": null,
+                "termination_reason": "fire_extinguished",
+                "action_counts": {
+                    "0": 0,
+                    "1": 63,
+                    "2": 89,
+                    "3": 84,
+                    "4": 58,
+                    "5": 15,
+                    "6": 0
+                },
+                "action_changes": 116,
+                "initial_battery": 150,
+                "initial_payload": 5,
+                "initial_pos": [
+                    2,
+                    2
+                ],
+                "final_battery": 70,
+                "final_payload": 5,
+                "final_pos": [
+                    28,
+                    28
+                ],
+                "min_battery": 47,
+                "deploy_attempts": 15,
+                "successful_water": 15,
+                "successful_retardant": 0,
+                "failed_deployments": 0,
+                "base_visits": 5,
+                "boundary_pushes": 0,
+                "final_active": true
+            }
+        }
+    ],
+    "summary": {
+        "no_suppression": {
+            "reward": {
+                "mean": -3813.5970000000357,
+                "std": 3087.3803480881893,
+                "min": -9544.740000000074,
+                "max": 84.27000000000001
+            },
+            "length": {
+                "mean": 310.7,
+                "std": 125.72831821033796,
+                "min": 74.0,
+                "max": 500.0
+            },
+            "burned_cells": {
+                "mean": 780.1,
+                "std": 617.1224270758598,
+                "min": 3.0,
+                "max": 1928.0
+            },
+            "final_battery": {
+                "mean": 150.0,
+                "std": 0.0,
+                "min": 150.0,
+                "max": 150.0
+            },
+            "final_payload": {
+                "mean": 5.0,
+                "std": 0.0,
+                "min": 5.0,
+                "max": 5.0
+            },
+            "extinction_rate": 0.9,
+            "extinguished_count": 9,
+            "total_crashes": 0,
+            "termination_reasons": {
+                "fire_extinguished": 9,
+                "max_steps": 1
+            },
+            "diagnostics": {
+                "action_counts": {
+                    "0": 3107,
+                    "1": 0,
+                    "2": 0,
+                    "3": 0,
+                    "4": 0,
+                    "5": 0,
+                    "6": 0
+                },
+                "action_pct": {
+                    "0": 100.0,
+                    "1": 0.0,
+                    "2": 0.0,
+                    "3": 0.0,
+                    "4": 0.0,
+                    "5": 0.0,
+                    "6": 0.0
+                },
+                "crash_causes": {},
+                "base_visits": {
+                    "mean": 310.7,
+                    "std": 125.72831821033796,
+                    "min": 74.0,
+                    "max": 500.0
+                },
+                "deploy_attempts": {
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                },
+                "successful_water": {
+                    "mean": 0.0,
+                    "std": 0.0,
+                    "min": 0.0,
+                    "max": 0.0
+                }
+            }
+        },
+        "random": {
+            "reward": {
+                "mean": -3813.0710000000354,
+                "std": 3084.8367250097936,
+                "min": -9544.740000000074,
+                "max": 84.27000000000001
+            },
+            "length": {
+                "mean": 308.1,
+                "std": 127.27800281274058,
+                "min": 74.0,
+                "max": 500.0
+            },
+            "burned_cells": {
+                "mean": 779.0,
+                "std": 615.8587500393252,
+                "min": 3.0,
+                "max": 1926.0
+            },
+            "final_battery": {
+                "mean": 37.3,
+                "std": 48.46452310711413,
+                "min": 0.0,
+                "max": 124.0
+            },
+            "final_payload": {
+                "mean": 0.1,
+                "std": 0.30000000000000004,
+                "min": 0.0,
+                "max": 1.0
+            },
+            "extinction_rate": 0.9,
+            "extinguished_count": 9,
+            "total_crashes": 5,
+            "termination_reasons": {
+                "fire_extinguished": 9,
+                "max_steps": 1
+            },
+            "diagnostics": {
+                "action_counts": {
+                    "0": 414,
+                    "1": 427,
+                    "2": 467,
+                    "3": 448,
+                    "4": 443,
+                    "5": 422,
+                    "6": 460
+                },
+                "action_pct": {
+                    "0": 13.437195715676728,
+                    "1": 13.859136643946771,
+                    "2": 15.157416423239209,
+                    "3": 14.5407335280753,
+                    "4": 14.378448555663745,
+                    "5": 13.696851671535216,
+                    "6": 14.930217461863032
+                },
+                "crash_causes": {
+                    "Battery depleted": 5
+                },
+                "base_visits": {
+                    "mean": 15.9,
+                    "std": 11.484337159801607,
+                    "min": 3.0,
+                    "max": 34.0
+                },
+                "deploy_attempts": {
+                    "mean": 88.2,
+                    "std": 37.991578014080964,
+                    "min": 20.0,
+                    "max": 145.0
+                },
+                "successful_water": {
+                    "mean": 11.2,
+                    "std": 6.368673331236264,
+                    "min": 5.0,
+                    "max": 28.0
+                }
+            }
+        },
+        "heuristic": {
+            "reward": {
+                "mean": -3813.5970000000357,
+                "std": 3087.3803480881893,
+                "min": -9544.740000000074,
+                "max": 84.27000000000001
+            },
+            "length": {
+                "mean": 310.7,
+                "std": 125.72831821033796,
+                "min": 74.0,
+                "max": 500.0
+            },
+            "burned_cells": {
+                "mean": 780.1,
+                "std": 617.1224270758598,
+                "min": 3.0,
+                "max": 1928.0
+            },
+            "final_battery": {
+                "mean": 105.7,
+                "std": 32.363714249140195,
+                "min": 34.0,
+                "max": 144.0
+            },
+            "final_payload": {
+                "mean": 4.3,
+                "std": 1.4177446878757827,
+                "min": 1.0,
+                "max": 5.0
+            },
+            "extinction_rate": 0.9,
+            "extinguished_count": 9,
+            "total_crashes": 0,
+            "termination_reasons": {
+                "fire_extinguished": 9,
+                "max_steps": 1
+            },
+            "diagnostics": {
+                "action_counts": {
+                    "0": 0,
+                    "1": 537,
+                    "2": 692,
+                    "3": 821,
+                    "4": 644,
+                    "5": 95,
+                    "6": 318
+                },
+                "action_pct": {
+                    "0": 0.0,
+                    "1": 17.283553266816863,
+                    "2": 22.272288381074993,
+                    "3": 26.42420341165111,
+                    "4": 20.72738976504667,
+                    "5": 3.057611844222723,
+                    "6": 10.23495333118764
+                },
+                "crash_causes": {},
+                "base_visits": {
+                    "mean": 5.3,
+                    "std": 2.3685438564654024,
+                    "min": 2.0,
+                    "max": 11.0
+                },
+                "deploy_attempts": {
+                    "mean": 41.3,
+                    "std": 56.44829492553339,
+                    "min": 0.0,
+                    "max": 180.0
+                },
+                "successful_water": {
+                    "mean": 9.2,
+                    "std": 7.704544113703289,
+                    "min": 0.0,
+                    "max": 23.0
+                }
+            }
+        },
+        "controlled_suppression": {
+            "reward": {
+                "mean": -3812.5970000000357,
+                "std": 3085.5249355273645,
+                "min": -9534.740000000074,
+                "max": 84.27000000000001
+            },
+            "length": {
+                "mean": 310.7,
+                "std": 125.72831821033796,
+                "min": 74.0,
+                "max": 500.0
+            },
+            "burned_cells": {
+                "mean": 779.9,
+                "std": 616.7505897848821,
+                "min": 3.0,
+                "max": 1926.0
+            },
+            "final_battery": {
+                "mean": 90.1,
+                "std": 40.92053274335514,
+                "min": 38.0,
+                "max": 148.0
+            },
+            "final_payload": {
+                "mean": 3.9,
+                "std": 1.972308292331602,
+                "min": 0.0,
+                "max": 5.0
+            },
+            "extinction_rate": 0.9,
+            "extinguished_count": 9,
+            "total_crashes": 0,
+            "termination_reasons": {
+                "fire_extinguished": 9,
+                "max_steps": 1
+            },
+            "diagnostics": {
+                "action_counts": {
+                    "0": 0,
+                    "1": 516,
+                    "2": 642,
+                    "3": 754,
+                    "4": 607,
+                    "5": 159,
+                    "6": 429
+                },
+                "action_pct": {
+                    "0": 0.0,
+                    "1": 16.607660122304473,
+                    "2": 20.663018989378823,
+                    "3": 24.267782426778243,
+                    "4": 19.536530415191503,
+                    "5": 5.11747666559382,
+                    "6": 13.807531380753138
+                },
+                "crash_causes": {},
+                "base_visits": {
+                    "mean": 17.1,
+                    "std": 25.96324324887012,
+                    "min": 2.0,
+                    "max": 79.0
+                },
+                "deploy_attempts": {
+                    "mean": 58.8,
+                    "std": 65.83281856338827,
+                    "min": 0.0,
+                    "max": 209.0
+                },
+                "successful_water": {
+                    "mean": 8.6,
+                    "std": 7.72269383052313,
+                    "min": 0.0,
+                    "max": 25.0
+                }
+            }
+        }
+    }
+}
